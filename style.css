@@ -1,0 +1,553 @@
+:root {
+    --bg-color: #0f172a; /* Slate 900 */
+    --panel-bg: rgba(30, 41, 59, 0.6); /* Slate 800 with opacity */
+    --panel-border: rgba(255, 255, 255, 0.08);
+    --text-main: #f8fafc;
+    --text-muted: #94a3b8;
+    
+    --primary: #3b82f6; /* Blue */
+    --primary-hover: #2563eb;
+    
+    --phase-idle: #64748b;
+    --phase-prep: #eab308; /* Yellow */
+    --phase-work: #ef4444; /* Red */
+    --phase-interval: #22c55e; /* Green */
+    --phase-cooldown: #3b82f6; /* Blue */
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-color);
+    background-image: radial-gradient(circle at 15% 50%, rgba(59, 130, 246, 0.15), transparent 25%),
+                      radial-gradient(circle at 85% 30%, rgba(239, 68, 68, 0.1), transparent 25%);
+    background-attachment: fixed;
+    color: var(--text-main);
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+h1, h2, h3, h4 {
+    font-family: 'Outfit', sans-serif;
+}
+
+.glass-panel {
+    background: var(--panel-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--panel-border);
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.app-container {
+    display: flex;
+    height: 100vh;
+    padding: 24px;
+    gap: 24px;
+    max-width: 1600px;
+    margin: 0 auto;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 280px;
+    display: flex;
+    flex-direction: column;
+    padding: 24px;
+    flex-shrink: 0;
+}
+
+.logo {
+    font-size: 28px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    margin-bottom: 40px;
+    text-align: center;
+}
+
+.logo span {
+    color: var(--primary);
+}
+
+.day-selector {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex-grow: 1;
+}
+
+.day-btn {
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    font-size: 16px;
+    font-weight: 600;
+    text-align: left;
+    padding: 12px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-transform: capitalize;
+}
+
+.day-btn:hover {
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text-main);
+}
+
+.day-btn.active {
+    background: var(--primary);
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+.export-container {
+    margin-top: auto;
+}
+
+/* Buttons */
+.btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    border: none;
+    border-radius: 8px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-secondary {
+    width: 100%;
+    padding: 12px;
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text-main);
+    border: 1px solid var(--panel-border);
+}
+
+.btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.btn-primary {
+    background: var(--primary);
+    color: #fff;
+    padding: 12px 24px;
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+.btn-primary:hover {
+    background: var(--primary-hover);
+    transform: translateY(-2px);
+}
+
+.btn-large {
+    padding: 16px 32px;
+}
+
+/* Main Content */
+.main-content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    min-width: 0;
+}
+
+.main-header {
+    padding: 24px;
+}
+
+.main-header h2 {
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.content-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    flex-grow: 1;
+    min-height: 0;
+}
+
+/* Editor Section */
+.editor-section {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+}
+
+.editor-section h3 {
+    margin-bottom: 20px;
+    color: var(--text-muted);
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.exercise-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.exercise-card {
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid var(--panel-border);
+    border-radius: 12px;
+    padding: 16px;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+.exercise-card:hover {
+    border-color: rgba(255,255,255,0.2);
+}
+
+.exercise-card.active {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 1px var(--primary);
+}
+
+.ex-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.ex-title {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.ex-controls {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+}
+
+.control-group {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.control-group label {
+    font-size: 12px;
+    color: var(--text-muted);
+}
+
+.number-input {
+    display: flex;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.number-input button {
+    background: transparent;
+    border: none;
+    color: var(--text-main);
+    padding: 8px;
+    cursor: pointer;
+    transition: background 0.2s;
+    flex-shrink: 0;
+}
+
+.number-input button:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.number-input input {
+    background: transparent;
+    border: none;
+    color: var(--text-main);
+    text-align: center;
+    width: 100%;
+    font-family: 'Outfit', sans-serif;
+    font-weight: 600;
+    -moz-appearance: textfield;
+}
+
+.number-input input::-webkit-outer-spin-button,
+.number-input input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Timer Section */
+.timer-section {
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    transition: background-color 0.5s ease;
+}
+
+/* Dynamic glow based on phase */
+.timer-section::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, var(--current-glow, transparent) 0%, transparent 60%);
+    opacity: 0.15;
+    z-index: 0;
+    pointer-events: none;
+    transition: background 0.5s ease;
+}
+
+.timer-display-container {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 32px;
+}
+
+.phase-badge {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 8px 24px;
+    border-radius: 20px;
+    font-family: 'Outfit', sans-serif;
+    font-weight: 800;
+    letter-spacing: 2px;
+    font-size: 20px;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+}
+
+.time-circle {
+    position: relative;
+    width: 280px;
+    height: 280px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.time-circle-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 1;
+}
+
+.progress-ring {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: rotate(-90deg);
+}
+
+.progress-ring__circle {
+    transition: stroke-dashoffset 0.1s linear, stroke 0.3s ease;
+    stroke-dasharray: 816.814; /* 2 * pi * r (130) */
+    stroke-dashoffset: 0;
+    stroke-linecap: round;
+}
+
+.time-text {
+    font-family: 'Outfit', sans-serif;
+    font-size: 64px;
+    font-weight: 800;
+    display: flex;
+    align-items: baseline;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+    font-variant-numeric: tabular-nums;
+}
+
+.time-ms {
+    font-size: 32px;
+    color: var(--text-muted);
+    font-weight: 400;
+}
+
+.rep-info {
+    display: flex;
+    gap: 32px;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.timer-controls {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-top: 48px;
+}
+
+.timer-controls .btn-primary {
+    border-radius: 50%;
+    width: 72px;
+    height: 72px;
+    padding: 0;
+}
+
+.timer-controls .btn-secondary {
+    height: 56px;
+    border-radius: 28px;
+    padding: 0 24px;
+    white-space: nowrap;
+    min-width: 140px;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* Animations */
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.02); }
+    100% { transform: scale(1); }
+}
+
+.timer-active .time-circle {
+    animation: pulse 2s infinite;
+}
+
+.no-transition {
+    transition: none !important;
+}
+
+/* Responsive Layout (Mobile) */
+@media (max-width: 768px) {
+    .app-container {
+        flex-direction: column;
+        padding: 12px;
+        gap: 12px;
+        height: 100vh;
+        overflow: hidden;
+    }
+
+    .sidebar {
+        width: 100%;
+        border-right: none;
+        border-bottom: 1px solid var(--glass-border);
+        padding: 12px 16px;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        overflow: visible;
+        background: rgba(15, 23, 42, 0.95);
+    }
+
+    .logo {
+        margin-bottom: 12px;
+        font-size: 24px;
+    }
+
+    .day-selector {
+        display: flex;
+        flex-direction: row;
+        overflow-x: auto;
+        padding-bottom: 4px;
+        scroll-snap-type: x mandatory;
+        gap: 8px;
+    }
+    
+    .day-selector::-webkit-scrollbar {
+        display: none;
+    }
+    
+    .day-btn {
+        flex: 0 0 auto;
+        scroll-snap-align: start;
+        white-space: nowrap;
+        text-align: center;
+    }
+
+    .main-content {
+        padding: 0;
+        overflow-y: auto;
+        gap: 12px;
+    }
+
+    .main-header {
+        display: none !important; /* スマホ時は曜日タイトルを非表示 */
+    }
+
+    .content-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .editor-section {
+        padding: 16px;
+    }
+
+    .editor-section h3 {
+        display: none; /* スマホではタイトルを隠して省スペース化 */
+    }
+
+    .exercise-list {
+        display: flex;
+        flex-direction: row;
+        overflow-x: auto;
+        overflow-y: visible;
+        padding-bottom: 8px;
+        padding-top: 8px;
+        scroll-snap-type: x mandatory;
+        gap: 16px;
+    }
+
+    .exercise-list::-webkit-scrollbar {
+        display: none;
+    }
+
+    .exercise-card {
+        flex: 0 0 85%;
+        scroll-snap-align: center;
+        position: relative;
+    }
+
+    .export-container {
+        display: none !important; /* スマホ時は不要なため非表示 */
+    }
+    
+    /* スマホ時はメニュー内容の変更不可（表示のみ） */
+    .number-input button {
+        display: none !important;
+    }
+    
+    .number-input {
+        background: transparent !important;
+    }
+    
+    .number-input input {
+        pointer-events: none;
+        padding: 0;
+        text-align: left;
+        font-size: 16px;
+    }
+    
+    /* タイマー周りの微調整 */
+    .time-circle {
+        transform: scale(0.9);
+        margin: -16px auto;
+    }
+}
