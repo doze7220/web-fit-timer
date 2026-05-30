@@ -3,6 +3,7 @@
 const DAYS_ORDER = ["saturday", "sunday", "monday", "tuesday", "wednesday", "thursday", "friday"];
 
 let appData = null;
+let originalData = null;
 let currentDay = null;
 let currentExerciseIndex = -1;
 
@@ -168,24 +169,25 @@ const btnReset = document.getElementById('btn-reset');
 async function initApp() {
     const localData = localStorage.getItem('webFitTimerData');
     
+    try {
+        const res = await fetch('data/menu.json');
+        originalData = await res.json();
+    } catch (e) {
+        console.error("Failed to load menu.json", e);
+        return;
+    }
+    
     // スマホ時はローカルキャッシュを無視して常にJSONを参照
     if (localData && window.innerWidth > 768) {
         try {
             appData = JSON.parse(localData);
         } catch(e) {
             console.error("Failed to parse local data", e);
+            appData = JSON.parse(JSON.stringify(originalData));
         }
-    }
-    
-    if (!appData) {
-        try {
-            const res = await fetch('data/menu.json');
-            appData = await res.json();
-            saveData();
-        } catch (e) {
-            console.error("Failed to load menu.json", e);
-            return;
-        }
+    } else {
+        appData = JSON.parse(JSON.stringify(originalData));
+        if (window.innerWidth > 768) saveData();
     }
     
     renderSidebar();
@@ -268,21 +270,23 @@ function renderExercises() {
         const controls = document.createElement('div');
         controls.className = 'ex-controls';
         
+        const exOriginal = (originalData.routines[currentDay] && originalData.routines[currentDay].exercises[index]) || ex;
+        
         // Sets
-        controls.appendChild(createNumberControl('セット', ex.sets, val => {
+        controls.appendChild(createNumberControl('セット', ex.sets, exOriginal.sets, val => {
             ex.sets = val;
             saveData();
         }));
         
         // Reps
-        controls.appendChild(createNumberControl('回数', ex.reps, val => {
+        controls.appendChild(createNumberControl('回数', ex.reps, exOriginal.reps, val => {
             ex.reps = val;
             saveData();
         }));
         
         // Weight
         if (ex.useDumbbell) {
-            controls.appendChild(createNumberControl('重量(kg)', ex.weight, val => {
+            controls.appendChild(createNumberControl('重量(kg)', ex.weight, exOriginal.weight, val => {
                 ex.weight = val;
                 saveData();
             }, { isWeight: true }));
@@ -303,7 +307,7 @@ function renderExercises() {
     });
 }
 
-function createNumberControl(label, initialValue, onChange, options = {}) {
+function createNumberControl(label, initialValue, originalValue, onChange, options = {}) {
     const isWeight = options && options.isWeight;
     const step = (typeof options === 'number') ? options : (options.step || 1);
     const WEIGHT_STEPS = [2.5, 3.5, 5, 6, 7, 8, 9.5, 10.5, 11.5, 13.5, 16, 18.5, 20.5, 23, 24];
@@ -312,7 +316,7 @@ function createNumberControl(label, initialValue, onChange, options = {}) {
     group.className = 'control-group';
     
     const lbl = document.createElement('label');
-    lbl.textContent = label;
+    lbl.textContent = `${label} (${originalValue})`;
     
     const inputGroup = document.createElement('div');
     inputGroup.className = 'number-input';
@@ -326,12 +330,22 @@ function createNumberControl(label, initialValue, onChange, options = {}) {
     input.step = step;
     input.min = 0;
     
+    const checkChanged = (val) => {
+        if (val !== originalValue) {
+            input.style.color = '#f97316'; // Orange
+        } else {
+            input.style.color = 'var(--text-main)';
+        }
+    };
+    checkChanged(initialValue);
+    
     const btnPlus = document.createElement('button');
     btnPlus.textContent = '+';
     
     const updateValue = (newVal) => {
         if (!isWeight) newVal = Math.max(0, newVal);
         input.value = newVal;
+        checkChanged(newVal);
         onChange(newVal);
     };
     
