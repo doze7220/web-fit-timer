@@ -71,12 +71,8 @@ function playTone(frequency, duration) {
 
 function playTrumpet(count = 1) {
     if (!audioCtx) return;
-    const duration = 1.0;
 
-    for (let i = 0; i < count; i++) {
-        const delay = i * 1.2; // 1.2秒間隔
-        const now = audioCtx.currentTime + delay;
-
+    const playSingleTrumpet = (startTime, duration, pitchMult = 1.0) => {
         const osc1 = audioCtx.createOscillator();
         const osc2 = audioCtx.createOscillator();
         const osc3 = audioCtx.createOscillator();
@@ -86,30 +82,34 @@ function playTrumpet(count = 1) {
         osc2.type = 'sawtooth';
         osc3.type = 'square';
         
-        // C#5あたりの周波数
-        const baseFreq = 440 * Math.pow(2, 4 / 12); 
+        // C#5あたりの周波数を基準にピッチ倍率をかける
+        const baseFreq = 440 * Math.pow(2, 4 / 12) * pitchMult; 
         
         // 「ぷわーー」の「ぷ」のしゃくり上げ（ピッチベンド）
-        osc1.frequency.setValueAtTime(baseFreq * 0.8, now);
-        osc1.frequency.exponentialRampToValueAtTime(baseFreq, now + 0.15);
-        osc2.frequency.setValueAtTime(baseFreq * 0.8 * 1.01, now);
-        osc2.frequency.exponentialRampToValueAtTime(baseFreq * 1.01, now + 0.15);
-        osc3.frequency.setValueAtTime(baseFreq * 0.8 * 0.99, now);
-        osc3.frequency.exponentialRampToValueAtTime(baseFreq * 0.99, now + 0.15);
+        osc1.frequency.setValueAtTime(baseFreq * 0.8, startTime);
+        osc1.frequency.exponentialRampToValueAtTime(baseFreq, startTime + 0.15);
+        osc2.frequency.setValueAtTime(baseFreq * 0.8 * 1.01, startTime);
+        osc2.frequency.exponentialRampToValueAtTime(baseFreq * 1.01, startTime + 0.15);
+        osc3.frequency.setValueAtTime(baseFreq * 0.8 * 0.99, startTime);
+        osc3.frequency.exponentialRampToValueAtTime(baseFreq * 0.99, startTime + 0.15);
 
         // フィルターでブラス特有の「パァーン」という開きを表現
         const filter = audioCtx.createBiquadFilter();
         filter.type = 'lowpass';
-        filter.frequency.setValueAtTime(500, now);
-        filter.frequency.linearRampToValueAtTime(3000, now + 0.1);
-        filter.frequency.exponentialRampToValueAtTime(800, now + duration);
+        filter.frequency.setValueAtTime(500, startTime);
+        filter.frequency.linearRampToValueAtTime(3000, startTime + 0.1);
+        filter.frequency.exponentialRampToValueAtTime(800, startTime + duration);
 
         const gainNode = audioCtx.createGain();
-        gainNode.gain.setValueAtTime(0, now);
-        gainNode.gain.linearRampToValueAtTime(0.4, now + 0.1);
-        gainNode.gain.linearRampToValueAtTime(0.2, now + 0.3);
-        gainNode.gain.setValueAtTime(0.2, now + duration - 0.2);
-        gainNode.gain.linearRampToValueAtTime(0, now + duration);
+        gainNode.gain.setValueAtTime(0, startTime);
+        gainNode.gain.linearRampToValueAtTime(0.4, startTime + 0.1);
+        
+        // 短い音の時はエンベロープ（音の減衰）を簡略化
+        if (duration > 0.4) {
+            gainNode.gain.linearRampToValueAtTime(0.2, startTime + 0.3);
+            gainNode.gain.setValueAtTime(0.2, startTime + duration - 0.2);
+        }
+        gainNode.gain.linearRampToValueAtTime(0, startTime + duration);
 
         osc1.connect(filter);
         osc2.connect(filter);
@@ -117,13 +117,23 @@ function playTrumpet(count = 1) {
         filter.connect(gainNode);
         gainNode.connect(audioCtx.destination);
 
-        osc1.start(now);
-        osc2.start(now);
-        osc3.start(now);
+        osc1.start(startTime);
+        osc2.start(startTime);
+        osc3.start(startTime);
         
-        osc1.stop(now + duration);
-        osc2.stop(now + duration);
-        osc3.stop(now + duration);
+        osc1.stop(startTime + duration);
+        osc2.stop(startTime + duration);
+        osc3.stop(startTime + duration);
+    };
+
+    const now = audioCtx.currentTime;
+    
+    if (count === 1) {
+        playSingleTrumpet(now, 1.0);
+    } else if (count === 2) {
+        // 「ぱぱーん！」と鳴らす（1音目を短く、少し高めにファンファーレ風）
+        playSingleTrumpet(now, 0.2, 1.0);
+        playSingleTrumpet(now + 0.25, 1.0, 1.122); // 1.122倍（全音上）で気持ちよく
     }
 }
 
