@@ -309,13 +309,11 @@ function renderExercises() {
             saveData();
         }));
         
-        // Weight
-        if (ex.useDumbbell) {
-            controls.appendChild(createNumberControl('重量(kg)', ex.weight, exOriginal.weight, val => {
-                ex.weight = val;
-                saveData();
-            }, { isWeight: true }));
-        }
+        // Weight (常に表示)
+        controls.appendChild(createNumberControl('重量(kg)', ex.weight, exOriginal.weight, val => {
+            ex.weight = val;
+            saveData();
+        }, { isWeight: true }));
         
         // WORK SEC (repDuration)
         controls.appendChild(createNumberControl('WORK SEC', ex.timers.repDuration, exOriginal.timers.repDuration, val => {
@@ -376,6 +374,8 @@ function createNumberControl(label, initialValue, originalValue, onChange, optio
     const checkChanged = (val) => {
         if (val !== originalValue) {
             input.style.color = '#f97316'; // Orange
+        } else if (val === 0) {
+            input.style.color = 'var(--text-muted)'; // 0の場合はグレーにして目立たなくする
         } else {
             input.style.color = 'var(--text-main)';
         }
