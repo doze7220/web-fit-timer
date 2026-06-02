@@ -69,58 +69,62 @@ function playTone(frequency, duration) {
     oscillator.stop(now + duration);
 }
 
-function playTrumpet() {
+function playTrumpet(count = 1) {
     if (!audioCtx) return;
-    const now = audioCtx.currentTime;
     const duration = 1.0;
 
-    const osc1 = audioCtx.createOscillator();
-    const osc2 = audioCtx.createOscillator();
-    const osc3 = audioCtx.createOscillator();
-    
-    // ラッパらしいブラス音を作るためノコギリ波と矩形波をミックス
-    osc1.type = 'sawtooth';
-    osc2.type = 'sawtooth';
-    osc3.type = 'square';
-    
-    // C#5あたりの周波数
-    const baseFreq = 440 * Math.pow(2, 4 / 12); 
-    
-    // 「ぷわーー」の「ぷ」のしゃくり上げ（ピッチベンド）
-    osc1.frequency.setValueAtTime(baseFreq * 0.8, now);
-    osc1.frequency.exponentialRampToValueAtTime(baseFreq, now + 0.15);
-    osc2.frequency.setValueAtTime(baseFreq * 0.8 * 1.01, now);
-    osc2.frequency.exponentialRampToValueAtTime(baseFreq * 1.01, now + 0.15);
-    osc3.frequency.setValueAtTime(baseFreq * 0.8 * 0.99, now);
-    osc3.frequency.exponentialRampToValueAtTime(baseFreq * 0.99, now + 0.15);
+    for (let i = 0; i < count; i++) {
+        const delay = i * 1.2; // 1.2秒間隔
+        const now = audioCtx.currentTime + delay;
 
-    // フィルターでブラス特有の「パァーン」という開きを表現
-    const filter = audioCtx.createBiquadFilter();
-    filter.type = 'lowpass';
-    filter.frequency.setValueAtTime(500, now);
-    filter.frequency.linearRampToValueAtTime(3000, now + 0.1);
-    filter.frequency.exponentialRampToValueAtTime(800, now + duration);
+        const osc1 = audioCtx.createOscillator();
+        const osc2 = audioCtx.createOscillator();
+        const osc3 = audioCtx.createOscillator();
+        
+        // ラッパらしいブラス音を作るためノコギリ波と矩形波をミックス
+        osc1.type = 'sawtooth';
+        osc2.type = 'sawtooth';
+        osc3.type = 'square';
+        
+        // C#5あたりの周波数
+        const baseFreq = 440 * Math.pow(2, 4 / 12); 
+        
+        // 「ぷわーー」の「ぷ」のしゃくり上げ（ピッチベンド）
+        osc1.frequency.setValueAtTime(baseFreq * 0.8, now);
+        osc1.frequency.exponentialRampToValueAtTime(baseFreq, now + 0.15);
+        osc2.frequency.setValueAtTime(baseFreq * 0.8 * 1.01, now);
+        osc2.frequency.exponentialRampToValueAtTime(baseFreq * 1.01, now + 0.15);
+        osc3.frequency.setValueAtTime(baseFreq * 0.8 * 0.99, now);
+        osc3.frequency.exponentialRampToValueAtTime(baseFreq * 0.99, now + 0.15);
 
-    const gainNode = audioCtx.createGain();
-    gainNode.gain.setValueAtTime(0, now);
-    gainNode.gain.linearRampToValueAtTime(0.4, now + 0.1);
-    gainNode.gain.linearRampToValueAtTime(0.2, now + 0.3);
-    gainNode.gain.setValueAtTime(0.2, now + duration - 0.2);
-    gainNode.gain.linearRampToValueAtTime(0, now + duration);
+        // フィルターでブラス特有の「パァーン」という開きを表現
+        const filter = audioCtx.createBiquadFilter();
+        filter.type = 'lowpass';
+        filter.frequency.setValueAtTime(500, now);
+        filter.frequency.linearRampToValueAtTime(3000, now + 0.1);
+        filter.frequency.exponentialRampToValueAtTime(800, now + duration);
 
-    osc1.connect(filter);
-    osc2.connect(filter);
-    osc3.connect(filter);
-    filter.connect(gainNode);
-    gainNode.connect(audioCtx.destination);
+        const gainNode = audioCtx.createGain();
+        gainNode.gain.setValueAtTime(0, now);
+        gainNode.gain.linearRampToValueAtTime(0.4, now + 0.1);
+        gainNode.gain.linearRampToValueAtTime(0.2, now + 0.3);
+        gainNode.gain.setValueAtTime(0.2, now + duration - 0.2);
+        gainNode.gain.linearRampToValueAtTime(0, now + duration);
 
-    osc1.start(now);
-    osc2.start(now);
-    osc3.start(now);
-    
-    osc1.stop(now + duration);
-    osc2.stop(now + duration);
-    osc3.stop(now + duration);
+        osc1.connect(filter);
+        osc2.connect(filter);
+        osc3.connect(filter);
+        filter.connect(gainNode);
+        gainNode.connect(audioCtx.destination);
+
+        osc1.start(now);
+        osc2.start(now);
+        osc3.start(now);
+        
+        osc1.stop(now + duration);
+        osc2.stop(now + duration);
+        osc3.stop(now + duration);
+    }
 }
 
 function handleBeep(seconds, phase) {
@@ -375,7 +379,7 @@ function createNumberControl(label, initialValue, originalValue, onChange, optio
         if (val !== originalValue) {
             input.style.color = '#f97316'; // Orange
         } else if (val === 0) {
-            input.style.color = 'var(--text-muted)'; // 0の場合はグレーにして目立たなくする
+            input.style.color = '#555555'; // 0の場合は背景に溶け込むダークグレー
         } else {
             input.style.color = 'var(--text-main)';
         }
@@ -440,6 +444,10 @@ function startExercise(index, autoPause = false) {
     currentExerciseIndex = index;
     document.querySelectorAll('.exercise-card').forEach((c, i) => {
         c.classList.toggle('active', i === index);
+        if (i === index) {
+            // スクロール外の場合は自動スクロール
+            c.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
     });
     
     const ex = appData.routines[currentDay].exercises[index];
@@ -594,6 +602,7 @@ function handlePhaseComplete() {
     
     switch (timerState.phase) {
         case PHASES.PREP:
+            playTrumpet(1);
             startPhase(PHASES.WORK, ex.timers.repDuration * 1000);
             break;
             
@@ -605,10 +614,11 @@ function handlePhaseComplete() {
             } else {
                 // Finished all reps for this set
                 if (timerState.currentSet < ex.sets) {
+                    playTrumpet(1);
                     startPhase(PHASES.INTERVAL, ex.timers.interval * 1000);
                 } else {
-                    // 全セット終了時（ラッパ音を鳴らす）
-                    playTrumpet();
+                    // 全セット終了時（ラッパ音を2回鳴らす）
+                    playTrumpet(2);
                     
                     // 次のメニューがある場合も、一旦クールダウン（メニュー間休憩）を挟む
                     startPhase(PHASES.COOLDOWN, ex.timers.cooldown * 1000);

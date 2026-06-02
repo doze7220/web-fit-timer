@@ -21,7 +21,7 @@
           "id": "dumbbell_bench_fly",
           "name": "ダンベルベンチフライ",
           "useDumbbell": true,
-          "weight": 8.0,
+          "weight": 8,
           "sets": 2,
           "reps": 10,
           "timers": {
@@ -35,7 +35,7 @@
           "id": "dumbbell_narrow_press",
           "name": "ダンベルナロープレス",
           "useDumbbell": true,
-          "weight": 8.0,
+          "weight": 8,
           "sets": 2,
           "reps": 10,
           "timers": {
@@ -49,7 +49,7 @@
           "id": "crunch",
           "name": "クランチ",
           "useDumbbell": true,
-          "weight": 8.0,
+          "weight": 8,
           "sets": 3,
           "reps": 10,
           "timers": {
@@ -124,7 +124,7 @@
           "id": "incline_hammer_curl",
           "name": "インクラインハンマーカール",
           "useDumbbell": true,
-          "weight": 5.0,
+          "weight": 5,
           "sets": 2,
           "reps": 10,
           "timers": {
@@ -138,7 +138,7 @@
           "id": "incline_dumbbell_curl",
           "name": "インクラインダンベルカール",
           "useDumbbell": true,
-          "weight": 5.0,
+          "weight": 5,
           "sets": 2,
           "reps": 10,
           "timers": {
@@ -157,7 +157,7 @@
           "id": "slow_squat",
           "name": "スロースクワット",
           "useDumbbell": true,
-          "weight": 7.0,
+          "weight": 7,
           "sets": 3,
           "reps": 10,
           "timers": {
@@ -171,7 +171,7 @@
           "id": "hip_thrust",
           "name": "ヒップスラスト",
           "useDumbbell": true,
-          "weight": 16.0,
+          "weight": 16,
           "sets": 3,
           "reps": 10,
           "timers": {
@@ -185,7 +185,7 @@
           "id": "calf_raise",
           "name": "カーフレイズ",
           "useDumbbell": true,
-          "weight": 8.0,
+          "weight": 8,
           "sets": 2,
           "reps": 30,
           "timers": {
@@ -227,7 +227,7 @@
           "id": "side_bend",
           "name": "サイドベント",
           "useDumbbell": true,
-          "weight": 8.0,
+          "weight": 8,
           "sets": 2,
           "reps": 10,
           "timers": {
@@ -246,7 +246,7 @@
           "id": "dumbbell_shoulder_press",
           "name": "ダンベルショルダープレス",
           "useDumbbell": true,
-          "weight": 8.0,
+          "weight": 8,
           "sets": 3,
           "reps": 10,
           "timers": {
@@ -351,12 +351,12 @@
           "useDumbbell": true,
           "weight": 3.5,
           "sets": 1,
-          "reps": 15,
+          "reps": 10,
           "timers": {
             "prep": 30,
             "repDuration": 10,
-            "interval": 60,
-            "cooldown": 90
+            "interval": 0,
+            "cooldown": 10
           }
         },
         {
@@ -369,8 +369,8 @@
           "timers": {
             "prep": 30,
             "repDuration": 4,
-            "interval": 60,
-            "cooldown": 90
+            "interval": 0,
+            "cooldown": 10
           }
         },
         {
@@ -383,8 +383,8 @@
           "timers": {
             "prep": 30,
             "repDuration": 4,
-            "interval": 60,
-            "cooldown": 90
+            "interval": 0,
+            "cooldown": 10
           }
         },
         {
@@ -397,8 +397,8 @@
           "timers": {
             "prep": 30,
             "repDuration": 4,
-            "interval": 60,
-            "cooldown": 90
+            "interval": 0,
+            "cooldown": 10
           }
         },
         {
@@ -410,9 +410,9 @@
           "reps": 10,
           "timers": {
             "prep": 30,
-            "repDuration": 4,
-            "interval": 60,
-            "cooldown": 90
+            "repDuration": 3,
+            "interval": 0,
+            "cooldown": 105
           }
         }
       ]
@@ -511,5 +511,6 @@
         }
       ]
     }
-  }
+  },
+  "globalPrep": 5
 }

@@ -408,9 +408,16 @@ h1, h2, h3, h4 {
 
 .rep-info {
     display: flex;
-    gap: 32px;
+    gap: 40px;
     font-size: 20px;
     font-weight: 600;
+    align-items: baseline;
+}
+
+.rep-info span {
+    font-size: 56px;
+    font-weight: 800;
+    font-variant-numeric: tabular-nums;
 }
 
 .timer-controls {
