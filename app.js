@@ -567,14 +567,8 @@ function handlePhaseComplete() {
                     // 全セット終了時（ラッパ音を鳴らす）
                     playTrumpet();
                     
-                    const exercises = appData.routines[currentDay].exercises;
-                    if (currentExerciseIndex >= 0 && currentExerciseIndex < exercises.length - 1) {
-                        // 次のメニューへ自動遷移して即開始
-                        startExercise(currentExerciseIndex + 1, false);
-                    } else {
-                        // 全てのメニューが終了したらクールダウンへ
-                        startPhase(PHASES.COOLDOWN, ex.timers.cooldown * 1000);
-                    }
+                    // 次のメニューがある場合も、一旦クールダウン（メニュー間休憩）を挟む
+                    startPhase(PHASES.COOLDOWN, ex.timers.cooldown * 1000);
                 }
             }
             break;
@@ -586,8 +580,15 @@ function handlePhaseComplete() {
             break;
             
         case PHASES.COOLDOWN:
-            stopTimer();
-            resetTimerUI();
+            const exercises = appData.routines[currentDay].exercises;
+            if (currentExerciseIndex >= 0 && currentExerciseIndex < exercises.length - 1) {
+                // クールダウン完了後、次のメニューへ自動遷移して開始
+                startExercise(currentExerciseIndex + 1, false);
+            } else {
+                // 全てのメニューが完全に終了
+                stopTimer();
+                resetTimerUI();
+            }
             break;
     }
 }
@@ -603,12 +604,8 @@ function skipToNextSet() {
         timerState.currentRep = 1;
         startPhase(PHASES.WORK, ex.timers.repDuration * 1000);
     } else {
-        const exercises = appData.routines[currentDay].exercises;
-        if (currentExerciseIndex >= 0 && currentExerciseIndex < exercises.length - 1) {
-            startExercise(currentExerciseIndex + 1, false);
-        } else {
-            startPhase(PHASES.COOLDOWN, ex.timers.cooldown * 1000);
-        }
+        // 最終セットをスキップした場合も、まずはクールダウン（メニュー間休憩）へ移行
+        startPhase(PHASES.COOLDOWN, ex.timers.cooldown * 1000);
     }
 }
 

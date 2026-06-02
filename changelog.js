@@ -1,6 +1,13 @@
 // changelog.js
 const changelog = [
     {
+        version: "v1.2.1",
+        date: "2026-06-02",
+        changes: [
+            "バグ修正: メニュー（種目）が終了した際、次のメニューへ直行せず、必ずメニュー間休憩（クールダウン）を挟むように修正"
+        ]
+    },
+    {
         version: "v1.2.0",
         date: "2026-05-30",
         changes: [
