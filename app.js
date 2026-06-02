@@ -190,7 +190,12 @@ async function initApp() {
         if (window.innerWidth > 768) saveData();
     }
     
+    if (typeof appData.globalPrep === 'undefined') {
+        appData.globalPrep = 5;
+    }
+    
     renderSidebar();
+    renderGlobalPrep();
     
     // Select current day automatically
     const todayIndex = new Date().getDay(); // 0: Sunday ... 6: Saturday
@@ -221,6 +226,26 @@ function renderSidebar() {
         btn.addEventListener('click', () => selectDay(dayKey));
         daySelector.appendChild(btn);
     });
+}
+
+function renderGlobalPrep() {
+    const container = document.getElementById('global-prep-container');
+    if (!container) return;
+    container.innerHTML = '';
+    
+    const origPrep = originalData.globalPrep !== undefined ? originalData.globalPrep : 5;
+    
+    const control = createNumberControl('PREP SEC', appData.globalPrep, origPrep, val => {
+        appData.globalPrep = val;
+        saveData();
+    }, { step: 1 });
+    
+    // レイアウト調整（横並び）
+    control.style.flexDirection = 'row';
+    control.style.alignItems = 'center';
+    control.style.gap = '8px';
+    
+    container.appendChild(control);
 }
 
 function selectDay(dayKey) {
@@ -291,6 +316,24 @@ function renderExercises() {
                 saveData();
             }, { isWeight: true }));
         }
+        
+        // WORK SEC (repDuration)
+        controls.appendChild(createNumberControl('WORK SEC', ex.timers.repDuration, exOriginal.timers.repDuration, val => {
+            ex.timers.repDuration = val;
+            saveData();
+        }, { step: 1 }));
+        
+        // INTERVAL SEC
+        controls.appendChild(createNumberControl('INTERVAL SEC', ex.timers.interval, exOriginal.timers.interval, val => {
+            ex.timers.interval = val;
+            saveData();
+        }, { step: 5 }));
+        
+        // COOLDOWN SEC
+        controls.appendChild(createNumberControl('COOLDOWN SEC', ex.timers.cooldown, exOriginal.timers.cooldown, val => {
+            ex.timers.cooldown = val;
+            saveData();
+        }, { step: 5 }));
         
         card.appendChild(header);
         card.appendChild(controls);
@@ -407,8 +450,8 @@ function startExercise(index, autoPause = false) {
     timerState.currentSet = 1;
     timerState.currentRep = 1;
     
-    // 準備時間を全メニュー共通で5秒(5000ms)に固定
-    startPhase(PHASES.PREP, 5000);
+    // 準備時間
+    startPhase(PHASES.PREP, (appData.globalPrep || 5) * 1000);
     
     if (autoPause) {
         timerState.active = false;
