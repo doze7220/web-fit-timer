@@ -1,6 +1,13 @@
 // changelog.js
 const changelog = [
     {
+        version: "v1.3.4",
+        date: "2026-06-04",
+        changes: [
+            "機能追加: アプリケーションのアイコン (wftimer.ico) を追加し、Web用faviconとして設定"
+        ]
+    },
+    {
         version: "v1.3.3",
         date: "2026-06-02",
         changes: [
