@@ -54,7 +54,7 @@
           "reps": 10,
           "timers": {
             "prep": 30,
-            "repDuration": 3,
+            "repDuration": 4,
             "interval": 60,
             "cooldown": 90
           }
@@ -68,7 +68,7 @@
           "reps": 10,
           "timers": {
             "prep": 30,
-            "repDuration": 3,
+            "repDuration": 4,
             "interval": 60,
             "cooldown": 90
           }
@@ -124,7 +124,7 @@
           "id": "incline_hammer_curl",
           "name": "インクラインハンマーカール",
           "useDumbbell": true,
-          "weight": 3.5,
+          "weight": 5,
           "sets": 2,
           "reps": 10,
           "timers": {
@@ -138,7 +138,7 @@
           "id": "incline_dumbbell_curl",
           "name": "インクラインダンベルカール",
           "useDumbbell": true,
-          "weight": 3.5,
+          "weight": 5,
           "sets": 2,
           "reps": 10,
           "timers": {
@@ -472,13 +472,13 @@
           "name": "ストレッチ（10分）",
           "useDumbbell": false,
           "weight": 0,
-          "sets": 2,
-          "reps": 2,
+          "sets": 1,
+          "reps": 1,
           "timers": {
             "prep": 30,
-            "repDuration": 5,
-            "interval": 5,
-            "cooldown": 5
+            "repDuration": 600,
+            "interval": 0,
+            "cooldown": 0
           }
         },
         {
@@ -487,12 +487,12 @@
           "useDumbbell": false,
           "weight": 0,
           "sets": 1,
-          "reps": 2,
+          "reps": 1,
           "timers": {
             "prep": 30,
-            "repDuration": 3,
-            "interval": 5,
-            "cooldown": 5
+            "repDuration": 1200,
+            "interval": 0,
+            "cooldown": 0
           }
         },
         {
@@ -501,16 +501,16 @@
           "useDumbbell": false,
           "weight": 0,
           "sets": 1,
-          "reps": 2,
+          "reps": 1,
           "timers": {
             "prep": 0,
-            "repDuration": 3,
-            "interval": 5,
-            "cooldown": 5
+            "repDuration": 10,
+            "interval": 0,
+            "cooldown": 0
           }
         }
       ]
     }
   },
-  "globalPrep": 10
+  "globalPrep": 5
 }
