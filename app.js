@@ -48,6 +48,15 @@ function initAudio() {
     if (audioCtx.state === 'suspended') {
         audioCtx.resume();
     }
+    // MP3アセットのロック解除（スマホ環境などの自動再生制限対策）
+    Object.values(AUDIO_ASSETS).forEach(audio => {
+        if (audio.paused) {
+            audio.play().then(() => {
+                audio.pause();
+                audio.currentTime = 0;
+            }).catch(() => {});
+        }
+    });
 }
 
 function playTone(frequency, duration) {
@@ -68,72 +77,24 @@ function playTone(frequency, duration) {
     oscillator.start(now);
     oscillator.stop(now + duration);
 }
+// Audio Assets
+const AUDIO_ASSETS = {
+    whistleShort1: new Audio('assets/whistle_short1.mp3'),
+    whistleShort2: new Audio('assets/whistle_short2.mp3'),
+    whistleLong1: new Audio('assets/whistle_long1.mp3'),
+    whistleLong2: new Audio('assets/whistle_long2.mp3')
+};
 
-function playTrumpet(count = 1) {
-    if (!audioCtx) return;
+// プリロード
+Object.values(AUDIO_ASSETS).forEach(audio => {
+    audio.load();
+});
 
-    const playSingleTrumpet = (startTime, duration, pitchMult = 1.0) => {
-        const osc1 = audioCtx.createOscillator();
-        const osc2 = audioCtx.createOscillator();
-        const osc3 = audioCtx.createOscillator();
-        
-        // ラッパらしいブラス音を作るためノコギリ波と矩形波をミックス
-        osc1.type = 'sawtooth';
-        osc2.type = 'sawtooth';
-        osc3.type = 'square';
-        
-        // C#5あたりの周波数を基準にピッチ倍率をかける
-        const baseFreq = 440 * Math.pow(2, 4 / 12) * pitchMult; 
-        
-        // 「ぷわーー」の「ぷ」のしゃくり上げ（ピッチベンド）
-        osc1.frequency.setValueAtTime(baseFreq * 0.8, startTime);
-        osc1.frequency.exponentialRampToValueAtTime(baseFreq, startTime + 0.15);
-        osc2.frequency.setValueAtTime(baseFreq * 0.8 * 1.01, startTime);
-        osc2.frequency.exponentialRampToValueAtTime(baseFreq * 1.01, startTime + 0.15);
-        osc3.frequency.setValueAtTime(baseFreq * 0.8 * 0.99, startTime);
-        osc3.frequency.exponentialRampToValueAtTime(baseFreq * 0.99, startTime + 0.15);
-
-        // フィルターでブラス特有の「パァーン」という開きを表現
-        const filter = audioCtx.createBiquadFilter();
-        filter.type = 'lowpass';
-        filter.frequency.setValueAtTime(500, startTime);
-        filter.frequency.linearRampToValueAtTime(3000, startTime + 0.1);
-        filter.frequency.exponentialRampToValueAtTime(800, startTime + duration);
-
-        const gainNode = audioCtx.createGain();
-        gainNode.gain.setValueAtTime(0, startTime);
-        gainNode.gain.linearRampToValueAtTime(0.4, startTime + 0.1);
-        
-        // 短い音の時はエンベロープ（音の減衰）を簡略化
-        if (duration > 0.4) {
-            gainNode.gain.linearRampToValueAtTime(0.2, startTime + 0.3);
-            gainNode.gain.setValueAtTime(0.2, startTime + duration - 0.2);
-        }
-        gainNode.gain.linearRampToValueAtTime(0, startTime + duration);
-
-        osc1.connect(filter);
-        osc2.connect(filter);
-        osc3.connect(filter);
-        filter.connect(gainNode);
-        gainNode.connect(audioCtx.destination);
-
-        osc1.start(startTime);
-        osc2.start(startTime);
-        osc3.start(startTime);
-        
-        osc1.stop(startTime + duration);
-        osc2.stop(startTime + duration);
-        osc3.stop(startTime + duration);
-    };
-
-    const now = audioCtx.currentTime;
-    
-    if (count === 1) {
-        playSingleTrumpet(now, 1.0);
-    } else if (count === 2) {
-        // 「ぱぱーん！」と鳴らす（1音目を短く、少し高めにファンファーレ風）
-        playSingleTrumpet(now, 0.2, 1.0);
-        playSingleTrumpet(now + 0.25, 1.0, 1.122); // 1.122倍（全音上）で気持ちよく
+function playMp3(key) {
+    const audio = AUDIO_ASSETS[key];
+    if (audio) {
+        audio.currentTime = 0;
+        audio.play().catch(e => console.error(`Failed to play ${key}:`, e));
     }
 }
 
@@ -144,15 +105,11 @@ function handleBeep(seconds, phase) {
         } else if (seconds === 0) {
             playTone(1760, 0.5);
         }
-    } else if (phase === PHASES.PREP || phase === PHASES.INTERVAL) {
-        if (seconds > 0 && seconds <= 4) {
+    } else if (phase === PHASES.PREP || phase === PHASES.INTERVAL || phase === PHASES.COOLDOWN) {
+        if (seconds === 5) {
+            playMp3('whistleShort2');
+        } else if (seconds > 0 && seconds <= 3) {
             playTone(880, 0.1);
-        } else if (seconds === 0) {
-            playTone(1760, 0.5);
-        }
-    } else if (phase === PHASES.COOLDOWN) {
-        if (seconds === 0) {
-            playTone(1760, 0.8);
         }
     }
 }
@@ -207,6 +164,28 @@ async function initApp() {
     if (typeof appData.globalPrep === 'undefined') {
         appData.globalPrep = 5;
     }
+    if (typeof appData.globalCooldown === 'undefined') {
+        appData.globalCooldown = originalData.globalCooldown !== undefined ? originalData.globalCooldown : 90;
+    }
+
+    // 古いローカルデータのクリーンアップ処理（後方互換性のため）
+    const cleanupExTimers = (dataObj) => {
+        if (dataObj && dataObj.routines) {
+            Object.keys(dataObj.routines).forEach(dayKey => {
+                const routine = dataObj.routines[dayKey];
+                if (routine && routine.exercises) {
+                    routine.exercises.forEach(ex => {
+                        if (ex.timers) {
+                            if (ex.timers.prep !== undefined) delete ex.timers.prep;
+                            if (ex.timers.cooldown !== undefined) delete ex.timers.cooldown;
+                        }
+                    });
+                }
+            });
+        }
+    };
+    cleanupExTimers(appData);
+    cleanupExTimers(originalData);
     
     renderSidebar();
     renderGlobalPrep();
@@ -248,18 +227,35 @@ function renderGlobalPrep() {
     container.innerHTML = '';
     
     const origPrep = originalData.globalPrep !== undefined ? originalData.globalPrep : 5;
+    const origCooldown = originalData.globalCooldown !== undefined ? originalData.globalCooldown : 90;
     
-    const control = createNumberControl('PREP SEC', appData.globalPrep, origPrep, val => {
+    const prepControl = createNumberControl('PREP SEC', appData.globalPrep, origPrep, val => {
         appData.globalPrep = val;
         saveData();
     }, { step: 1 });
+
+    const cooldownControl = createNumberControl('COOLDOWN SEC', appData.globalCooldown, origCooldown, val => {
+        appData.globalCooldown = val;
+        saveData();
+    }, { step: 5 });
     
     // レイアウト調整（横並び）
-    control.style.flexDirection = 'row';
-    control.style.alignItems = 'center';
-    control.style.gap = '8px';
+    prepControl.style.flexDirection = 'row';
+    prepControl.style.alignItems = 'center';
+    prepControl.style.gap = '8px';
+
+    cooldownControl.style.flexDirection = 'row';
+    cooldownControl.style.alignItems = 'center';
+    cooldownControl.style.gap = '8px';
+
+    // 二つを横並びにするためのコンテナを作成
+    const wrapper = document.createElement('div');
+    wrapper.style.display = 'flex';
+    wrapper.style.gap = '16px';
+    wrapper.appendChild(prepControl);
+    wrapper.appendChild(cooldownControl);
     
-    container.appendChild(control);
+    container.appendChild(wrapper);
 }
 
 function selectDay(dayKey) {
@@ -341,11 +337,7 @@ function renderExercises() {
             saveData();
         }, { step: 5 }));
         
-        // COOLDOWN SEC
-        controls.appendChild(createNumberControl('COOLDOWN SEC', ex.timers.cooldown, exOriginal.timers.cooldown, val => {
-            ex.timers.cooldown = val;
-            saveData();
-        }, { step: 5 }));
+
         
         card.appendChild(header);
         card.appendChild(controls);
@@ -450,12 +442,25 @@ function createNumberControl(label, initialValue, originalValue, onChange, optio
 }
 
 // Timer Logic
-function startExercise(index, autoPause = false) {
+function startExercise(index, autoPause = false, skipPrep = false) {
     currentExerciseIndex = index;
+    const exercises = appData.routines[currentDay].exercises;
+    const isFinal = (index === exercises.length - 1);
+    
     document.querySelectorAll('.exercise-card').forEach((c, i) => {
-        c.classList.toggle('active', i === index);
+        const isActive = (i === index && !isFinal);
+        const isNext = (i === index + 1);
+        const isExFinal = (i === index && isFinal);
+        
+        c.classList.toggle('active', isActive);
+        c.classList.toggle('next', isNext);
+        c.classList.toggle('final', isExFinal);
+        
         if (i === index) {
             // スクロール外の場合は自動スクロール
+            c.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        } else if (isNext) {
+            // NEXTがスクロール外の場合は自動スクロール
             c.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         }
     });
@@ -468,8 +473,14 @@ function startExercise(index, autoPause = false) {
     timerState.currentSet = 1;
     timerState.currentRep = 1;
     
-    // 準備時間
-    startPhase(PHASES.PREP, (appData.globalPrep || 5) * 1000);
+    if (skipPrep) {
+        // 準備時間(PREP)をスキップして直接WORKを開始
+        playMp3('whistleShort1');
+        startPhase(PHASES.WORK, ex.timers.repDuration * 1000);
+    } else {
+        // 準備時間
+        startPhase(PHASES.PREP, (appData.globalPrep || 5) * 1000);
+    }
     
     if (autoPause) {
         timerState.active = false;
@@ -524,7 +535,29 @@ function resetTimerUI() {
     
     timerSection.style.setProperty('--current-glow', 'transparent');
     progressRing.style.stroke = 'var(--phase-idle)';
-    phaseBadge.style.color = 'var(--phase-idle)';
+}
+
+function showCompleteUI() {
+    // タイマーを停止状態にするが、UIはIDLEに戻さずコンプリート表示にする
+    timerState.active = false;
+    timerState.phase = PHASES.IDLE;
+    if (timerState.animationFrameId) {
+        cancelAnimationFrame(timerState.animationFrameId);
+        timerState.animationFrameId = null;
+    }
+    updatePlayPauseIcon();
+    
+    // UIのコンプリート表示を設定
+    timeLeftEl.textContent = "COMPLETE!";
+    timeMsEl.textContent = "";
+    progressRing.style.strokeDashoffset = 0;
+    progressRing.style.stroke = 'var(--phase-interval)'; // 緑色
+    
+    phaseBadge.textContent = "COMPLETE";
+    phaseBadge.style.color = 'var(--phase-interval)';
+    
+    timerSection.style.setProperty('--current-glow', 'var(--phase-interval)');
+    timerSection.classList.remove('timer-active');
 }
 
 function togglePlayPause() {
@@ -612,7 +645,7 @@ function handlePhaseComplete() {
     
     switch (timerState.phase) {
         case PHASES.PREP:
-            playTrumpet(1);
+            playMp3('whistleShort1');
             startPhase(PHASES.WORK, ex.timers.repDuration * 1000);
             break;
             
@@ -624,14 +657,18 @@ function handlePhaseComplete() {
             } else {
                 // Finished all reps for this set
                 if (timerState.currentSet < ex.sets) {
-                    playTrumpet(1);
+                    playMp3('whistleLong1');
                     startPhase(PHASES.INTERVAL, ex.timers.interval * 1000);
                 } else {
-                    // 全セット終了時（ラッパ音を2回鳴らす）
-                    playTrumpet(2);
-                    
-                    // 次のメニューがある場合も、一旦クールダウン（メニュー間休憩）を挟む
-                    startPhase(PHASES.COOLDOWN, ex.timers.cooldown * 1000);
+                    playMp3('whistleLong2');
+                    const exercises = appData.routines[currentDay].exercises;
+                    const isLastExercise = (currentExerciseIndex === exercises.length - 1);
+                    if (isLastExercise) {
+                        showCompleteUI();
+                    } else {
+                        // 次のメニューがある場合は、一旦クールダウン（メニュー間休憩）を挟む
+                        startPhase(PHASES.COOLDOWN, (appData.globalCooldown || 90) * 1000);
+                    }
                 }
             }
             break;
@@ -639,14 +676,15 @@ function handlePhaseComplete() {
         case PHASES.INTERVAL:
             timerState.currentSet++;
             timerState.currentRep = 1;
+            playMp3('whistleShort1');
             startPhase(PHASES.WORK, ex.timers.repDuration * 1000);
             break;
             
         case PHASES.COOLDOWN:
             const exercises = appData.routines[currentDay].exercises;
             if (currentExerciseIndex >= 0 && currentExerciseIndex < exercises.length - 1) {
-                // クールダウン完了後、次のメニューへ自動遷移して開始
-                startExercise(currentExerciseIndex + 1, false);
+                // クールダウン完了後、次のメニューへ自動遷移して開始（PREPスキップ）
+                startExercise(currentExerciseIndex + 1, false, true);
             } else {
                 // 全てのメニューが完全に終了
                 stopTimer();
@@ -665,17 +703,26 @@ function skipToNextSet() {
     if (timerState.currentSet < ex.sets) {
         timerState.currentSet++;
         timerState.currentRep = 1;
+        playMp3('whistleShort1');
         startPhase(PHASES.WORK, ex.timers.repDuration * 1000);
     } else {
-        // 最終セットをスキップした場合も、まずはクールダウン（メニュー間休憩）へ移行
-        startPhase(PHASES.COOLDOWN, ex.timers.cooldown * 1000);
+        playMp3('whistleLong2');
+        const exercises = appData.routines[currentDay].exercises;
+        const isLastExercise = (currentExerciseIndex === exercises.length - 1);
+        if (isLastExercise) {
+            showCompleteUI();
+        } else {
+            // 最終セットをスキップした場合も、まずはクールダウン（メニュー間休憩）へ移行
+            startPhase(PHASES.COOLDOWN, (appData.globalCooldown || 90) * 1000);
+        }
     }
 }
 
 function skipToNextExercise() {
     const exercises = appData.routines[currentDay].exercises;
     if (currentExerciseIndex >= 0 && currentExerciseIndex < exercises.length - 1) {
-        startExercise(currentExerciseIndex + 1);
+        // 次のメニューへ手動遷移（PREPスキップ）
+        startExercise(currentExerciseIndex + 1, false, true);
     } else {
         stopTimer();
         resetTimerUI();

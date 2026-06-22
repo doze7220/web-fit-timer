@@ -241,6 +241,16 @@ h1, h2, h3, h4 {
     box-shadow: 0 0 0 1px var(--primary);
 }
 
+.exercise-card.next {
+    border-color: #f97316;
+    box-shadow: 0 0 0 1px #f97316;
+}
+
+.exercise-card.final {
+    border-color: #ef4444;
+    box-shadow: 0 0 0 1px #ef4444;
+}
+
 .ex-header {
     display: flex;
     justify-content: space-between;

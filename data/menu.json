@@ -11,10 +11,8 @@
           "sets": 3,
           "reps": 10,
           "timers": {
-            "prep": 30,
             "repDuration": 4,
-            "interval": 60,
-            "cooldown": 90
+            "interval": 60
           }
         },
         {
@@ -25,10 +23,8 @@
           "sets": 2,
           "reps": 10,
           "timers": {
-            "prep": 30,
             "repDuration": 4,
-            "interval": 60,
-            "cooldown": 90
+            "interval": 60
           }
         },
         {
@@ -39,10 +35,8 @@
           "sets": 2,
           "reps": 10,
           "timers": {
-            "prep": 30,
             "repDuration": 4,
-            "interval": 60,
-            "cooldown": 90
+            "interval": 60
           }
         },
         {
@@ -53,10 +47,8 @@
           "sets": 3,
           "reps": 10,
           "timers": {
-            "prep": 30,
             "repDuration": 3,
-            "interval": 60,
-            "cooldown": 90
+            "interval": 60
           }
         },
         {
@@ -67,10 +59,8 @@
           "sets": 3,
           "reps": 10,
           "timers": {
-            "prep": 30,
             "repDuration": 3,
-            "interval": 60,
-            "cooldown": 90
+            "interval": 60
           }
         }
       ]
@@ -86,10 +76,8 @@
           "sets": 2,
           "reps": 12,
           "timers": {
-            "prep": 30,
             "repDuration": 4,
-            "interval": 60,
-            "cooldown": 90
+            "interval": 60
           }
         },
         {
@@ -100,10 +88,8 @@
           "sets": 3,
           "reps": 10,
           "timers": {
-            "prep": 30,
             "repDuration": 4,
-            "interval": 60,
-            "cooldown": 90
+            "interval": 60
           }
         },
         {
@@ -114,10 +100,8 @@
           "sets": 2,
           "reps": 15,
           "timers": {
-            "prep": 30,
             "repDuration": 4,
-            "interval": 60,
-            "cooldown": 90
+            "interval": 60
           }
         },
         {
@@ -128,10 +112,8 @@
           "sets": 2,
           "reps": 10,
           "timers": {
-            "prep": 30,
             "repDuration": 4,
-            "interval": 60,
-            "cooldown": 90
+            "interval": 60
           }
         },
         {
@@ -142,10 +124,8 @@
           "sets": 2,
           "reps": 10,
           "timers": {
-            "prep": 30,
             "repDuration": 4,
-            "interval": 60,
-            "cooldown": 90
+            "interval": 60
           }
         }
       ]
@@ -161,10 +141,8 @@
           "sets": 3,
           "reps": 10,
           "timers": {
-            "prep": 30,
             "repDuration": 10,
-            "interval": 60,
-            "cooldown": 90
+            "interval": 60
           }
         },
         {
@@ -175,10 +153,8 @@
           "sets": 3,
           "reps": 10,
           "timers": {
-            "prep": 30,
             "repDuration": 4,
-            "interval": 60,
-            "cooldown": 90
+            "interval": 60
           }
         },
         {
@@ -189,10 +165,8 @@
           "sets": 2,
           "reps": 30,
           "timers": {
-            "prep": 30,
             "repDuration": 3,
-            "interval": 60,
-            "cooldown": 90
+            "interval": 60
           }
         },
         {
@@ -203,10 +177,8 @@
           "sets": 1,
           "reps": 30,
           "timers": {
-            "prep": 30,
             "repDuration": 3,
-            "interval": 60,
-            "cooldown": 90
+            "interval": 60
           }
         },
         {
@@ -217,10 +189,8 @@
           "sets": 3,
           "reps": 10,
           "timers": {
-            "prep": 30,
             "repDuration": 4,
-            "interval": 60,
-            "cooldown": 90
+            "interval": 60
           }
         },
         {
@@ -231,10 +201,8 @@
           "sets": 2,
           "reps": 10,
           "timers": {
-            "prep": 30,
             "repDuration": 4,
-            "interval": 60,
-            "cooldown": 90
+            "interval": 60
           }
         }
       ]
@@ -250,10 +218,8 @@
           "sets": 3,
           "reps": 10,
           "timers": {
-            "prep": 30,
             "repDuration": 4,
-            "interval": 60,
-            "cooldown": 90
+            "interval": 60
           }
         },
         {
@@ -264,10 +230,8 @@
           "sets": 2,
           "reps": 10,
           "timers": {
-            "prep": 30,
             "repDuration": 4,
-            "interval": 60,
-            "cooldown": 90
+            "interval": 60
           }
         },
         {
@@ -278,10 +242,8 @@
           "sets": 2,
           "reps": 10,
           "timers": {
-            "prep": 30,
             "repDuration": 4,
-            "interval": 60,
-            "cooldown": 90
+            "interval": 60
           }
         },
         {
@@ -292,10 +254,8 @@
           "sets": 2,
           "reps": 12,
           "timers": {
-            "prep": 30,
             "repDuration": 4,
-            "interval": 60,
-            "cooldown": 90
+            "interval": 60
           }
         },
         {
@@ -306,10 +266,8 @@
           "sets": 2,
           "reps": 10,
           "timers": {
-            "prep": 30,
             "repDuration": 4,
-            "interval": 60,
-            "cooldown": 90
+            "interval": 60
           }
         },
         {
@@ -320,10 +278,8 @@
           "sets": 1,
           "reps": 10,
           "timers": {
-            "prep": 30,
             "repDuration": 4,
-            "interval": 60,
-            "cooldown": 90
+            "interval": 60
           }
         },
         {
@@ -334,10 +290,8 @@
           "sets": 1,
           "reps": 30,
           "timers": {
-            "prep": 30,
             "repDuration": 4,
-            "interval": 60,
-            "cooldown": 90
+            "interval": 60
           }
         }
       ]
@@ -353,10 +307,8 @@
           "sets": 1,
           "reps": 10,
           "timers": {
-            "prep": 30,
             "repDuration": 10,
-            "interval": 0,
-            "cooldown": 10
+            "interval": 0
           }
         },
         {
@@ -367,10 +319,8 @@
           "sets": 1,
           "reps": 15,
           "timers": {
-            "prep": 30,
             "repDuration": 4,
-            "interval": 0,
-            "cooldown": 10
+            "interval": 0
           }
         },
         {
@@ -381,10 +331,8 @@
           "sets": 1,
           "reps": 15,
           "timers": {
-            "prep": 30,
             "repDuration": 4,
-            "interval": 0,
-            "cooldown": 10
+            "interval": 0
           }
         },
         {
@@ -395,10 +343,8 @@
           "sets": 1,
           "reps": 15,
           "timers": {
-            "prep": 30,
             "repDuration": 4,
-            "interval": 0,
-            "cooldown": 10
+            "interval": 0
           }
         },
         {
@@ -409,10 +355,8 @@
           "sets": 1,
           "reps": 10,
           "timers": {
-            "prep": 30,
             "repDuration": 3,
-            "interval": 0,
-            "cooldown": 105
+            "interval": 0
           }
         }
       ]
@@ -428,10 +372,8 @@
           "sets": 1,
           "reps": 1,
           "timers": {
-            "prep": 30,
             "repDuration": 600,
-            "interval": 0,
-            "cooldown": 0
+            "interval": 0
           }
         },
         {
@@ -442,10 +384,8 @@
           "sets": 1,
           "reps": 1,
           "timers": {
-            "prep": 30,
             "repDuration": 1200,
-            "interval": 0,
-            "cooldown": 0
+            "interval": 0
           }
         },
         {
@@ -456,10 +396,8 @@
           "sets": 1,
           "reps": 1,
           "timers": {
-            "prep": 0,
             "repDuration": 300,
-            "interval": 0,
-            "cooldown": 0
+            "interval": 0
           }
         }
       ]
@@ -475,10 +413,8 @@
           "sets": 2,
           "reps": 2,
           "timers": {
-            "prep": 30,
             "repDuration": 5,
-            "interval": 5,
-            "cooldown": 5
+            "interval": 5
           }
         },
         {
@@ -489,10 +425,8 @@
           "sets": 1,
           "reps": 2,
           "timers": {
-            "prep": 30,
             "repDuration": 3,
-            "interval": 5,
-            "cooldown": 5
+            "interval": 5
           }
         },
         {
@@ -503,14 +437,13 @@
           "sets": 1,
           "reps": 2,
           "timers": {
-            "prep": 0,
             "repDuration": 3,
-            "interval": 5,
-            "cooldown": 5
+            "interval": 5
           }
         }
       ]
     }
   },
-  "globalPrep": 10
+  "globalPrep": 10,
+  "globalCooldown": 90
 }
