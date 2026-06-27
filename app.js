@@ -161,12 +161,16 @@ async function initApp() {
         if (window.innerWidth > 768) saveData();
     }
     
-    if (typeof appData.globalPrep === 'undefined') {
-        appData.globalPrep = 5;
-    }
-    if (typeof appData.globalCooldown === 'undefined') {
-        appData.globalCooldown = originalData.globalCooldown !== undefined ? originalData.globalCooldown : 90;
-    }
+    Object.keys(appData.routines).forEach(dayKey => {
+        const d = appData.routines[dayKey];
+        if (typeof d.prep === 'undefined') d.prep = 10;
+        if (typeof d.cooldown === 'undefined') d.cooldown = 90;
+    });
+    Object.keys(originalData.routines).forEach(dayKey => {
+        const d = originalData.routines[dayKey];
+        if (typeof d.prep === 'undefined') d.prep = 10;
+        if (typeof d.cooldown === 'undefined') d.cooldown = 90;
+    });
 
     // 古いローカルデータのクリーンアップ処理（後方互換性のため）
     const cleanupExTimers = (dataObj) => {
@@ -188,7 +192,6 @@ async function initApp() {
     cleanupExTimers(originalData);
     
     renderSidebar();
-    renderGlobalPrep();
     
     // Select current day automatically
     const todayIndex = new Date().getDay(); // 0: Sunday ... 6: Saturday
@@ -221,21 +224,24 @@ function renderSidebar() {
     });
 }
 
-function renderGlobalPrep() {
-    const container = document.getElementById('global-prep-container');
-    if (!container) return;
+function renderDayTimers() {
+    const container = document.getElementById('day-timers-container');
+    if (!container || !currentDay) return;
     container.innerHTML = '';
     
-    const origPrep = originalData.globalPrep !== undefined ? originalData.globalPrep : 5;
-    const origCooldown = originalData.globalCooldown !== undefined ? originalData.globalCooldown : 90;
+    const dayData = appData.routines[currentDay];
+    const origDayData = originalData.routines[currentDay];
     
-    const prepControl = createNumberControl('PREP SEC', appData.globalPrep, origPrep, val => {
-        appData.globalPrep = val;
+    const origPrep = origDayData.prep !== undefined ? origDayData.prep : 10;
+    const origCooldown = origDayData.cooldown !== undefined ? origDayData.cooldown : 90;
+    
+    const prepControl = createNumberControl('PREP SEC', dayData.prep, origPrep, val => {
+        dayData.prep = val;
         saveData();
     }, { step: 1 });
 
-    const cooldownControl = createNumberControl('COOLDOWN SEC', appData.globalCooldown, origCooldown, val => {
-        appData.globalCooldown = val;
+    const cooldownControl = createNumberControl('COOLDOWN SEC', dayData.cooldown, origCooldown, val => {
+        dayData.cooldown = val;
         saveData();
     }, { step: 5 });
     
@@ -267,6 +273,7 @@ function selectDay(dayKey) {
     const dayData = appData.routines[dayKey];
     currentDayNameTitle.textContent = dayData ? dayData.dayName : 'No Day Selected';
     
+    renderDayTimers();
     renderExercises();
     
     if (dayData && dayData.exercises && dayData.exercises.length > 0) {
@@ -479,7 +486,7 @@ function startExercise(index, autoPause = false, skipPrep = false) {
         startPhase(PHASES.WORK, ex.timers.repDuration * 1000);
     } else {
         // 準備時間
-        startPhase(PHASES.PREP, (appData.globalPrep || 5) * 1000);
+        startPhase(PHASES.PREP, (appData.routines[currentDay].prep || 10) * 1000);
     }
     
     if (autoPause) {
@@ -667,7 +674,7 @@ function handlePhaseComplete() {
                         showCompleteUI();
                     } else {
                         // 次のメニューがある場合は、一旦クールダウン（メニュー間休憩）を挟む
-                        startPhase(PHASES.COOLDOWN, (appData.globalCooldown || 90) * 1000);
+                        startPhase(PHASES.COOLDOWN, (appData.routines[currentDay].cooldown || 90) * 1000);
                     }
                 }
             }
@@ -713,7 +720,7 @@ function skipToNextSet() {
             showCompleteUI();
         } else {
             // 最終セットをスキップした場合も、まずはクールダウン（メニュー間休憩）へ移行
-            startPhase(PHASES.COOLDOWN, (appData.globalCooldown || 90) * 1000);
+            startPhase(PHASES.COOLDOWN, (appData.routines[currentDay].cooldown || 90) * 1000);
         }
     }
 }

@@ -1,6 +1,14 @@
 // changelog.js
 const changelog = [
     {
+        version: "v1.9.0",
+        date: "2026-06-27",
+        changes: [
+            "機能追加: 準備時間 (PREP) と メニュー間休憩時間 (COOLDOWN) を曜日ごとに設定できるよう機能拡張",
+            "UI改善: 曜日メニューのヘッダ部から「Exercises」表記を削除し、画面幅によるラベルテキストの意図しない改行を修正"
+        ]
+    },
+    {
         version: "v1.8.0",
         date: "2026-06-22",
         changes: [

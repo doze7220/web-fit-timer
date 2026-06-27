@@ -63,9 +63,7 @@
             "interval": 60
           }
         }
-      ],
-      "prep": 10,
-      "cooldown": 90
+      ]
     },
     "sunday": {
       "dayName": "日曜：背中＋上腕二頭筋",
@@ -130,9 +128,7 @@
             "interval": 60
           }
         }
-      ],
-      "prep": 10,
-      "cooldown": 90
+      ]
     },
     "monday": {
       "dayName": "月曜：脚＋お尻",
@@ -209,9 +205,7 @@
             "interval": 20
           }
         }
-      ],
-      "prep": 10,
-      "cooldown": 90
+      ]
     },
     "tuesday": {
       "dayName": "火曜：肩＋腹",
@@ -300,9 +294,7 @@
             "interval": 60
           }
         }
-      ],
-      "prep": 10,
-      "cooldown": 90
+      ]
     },
     "wednesday": {
       "dayName": "水曜：全身サーキット",
@@ -313,7 +305,7 @@
           "useDumbbell": true,
           "weight": 3.5,
           "sets": 1,
-          "reps": 10,
+          "reps": 15,
           "timers": {
             "repDuration": 10,
             "interval": 0
@@ -361,15 +353,13 @@
           "useDumbbell": false,
           "weight": 0,
           "sets": 1,
-          "reps": 10,
+          "reps": 20,
           "timers": {
-            "repDuration": 3,
+            "repDuration": 2,
             "interval": 0
           }
         }
-      ],
-      "prep": 10,
-      "cooldown": 90
+      ]
     },
     "thursday": {
       "dayName": "木曜：休息・回復デー",
@@ -410,9 +400,7 @@
             "interval": 0
           }
         }
-      ],
-      "prep": 10,
-      "cooldown": 90
+      ]
     },
     "friday": {
       "dayName": "金曜：休息・回復デー",
@@ -453,9 +441,9 @@
             "interval": 5
           }
         }
-      ],
-      "prep": 10,
-      "cooldown": 90
+      ]
     }
-  }
+  },
+  "globalPrep": 10,
+  "globalCooldown": 15
 }
