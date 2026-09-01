@@ -19,8 +19,8 @@
           "id": "dumbbell_bench_fly",
           "name": "ダンベルベンチフライ",
           "useDumbbell": true,
-          "weight": 8,
-          "sets": 2,
+          "weight": 9.5,
+          "sets": 3,
           "reps": 10,
           "timers": {
             "repDuration": 4,
@@ -64,7 +64,7 @@
           }
         }
       ],
-      "prep": 10,
+      "prep": 30,
       "cooldown": 90
     },
     "sunday": {
@@ -74,7 +74,7 @@
           "id": "incline_reverse_fly",
           "name": "インクラインリバースフライ",
           "useDumbbell": true,
-          "weight": 3.5,
+          "weight": 2.5,
           "sets": 2,
           "reps": 12,
           "timers": {
@@ -131,7 +131,7 @@
           }
         }
       ],
-      "prep": 10,
+      "prep": 20,
       "cooldown": 90
     },
     "monday": {
@@ -141,7 +141,7 @@
           "id": "slow_squat",
           "name": "スロースクワット",
           "useDumbbell": true,
-          "weight": 7,
+          "weight": 8,
           "sets": 3,
           "reps": 10,
           "timers": {
@@ -157,8 +157,8 @@
           "sets": 3,
           "reps": 10,
           "timers": {
-            "repDuration": 4,
-            "interval": 60
+            "repDuration": 3,
+            "interval": 30
           }
         },
         {
@@ -169,8 +169,8 @@
           "sets": 2,
           "reps": 30,
           "timers": {
-            "repDuration": 2.5,
-            "interval": 60
+            "repDuration": 2,
+            "interval": 30
           }
         },
         {
@@ -181,7 +181,7 @@
           "sets": 2,
           "reps": 30,
           "timers": {
-            "repDuration": 3,
+            "repDuration": 2.5,
             "interval": 20
           }
         },
@@ -191,9 +191,9 @@
           "useDumbbell": false,
           "weight": 0,
           "sets": 3,
-          "reps": 10,
+          "reps": 20,
           "timers": {
-            "repDuration": 2,
+            "repDuration": 3,
             "interval": 60
           }
         },
@@ -272,7 +272,7 @@
           "sets": 2,
           "reps": 10,
           "timers": {
-            "repDuration": 4,
+            "repDuration": 3,
             "interval": 60
           }
         },
@@ -281,10 +281,10 @@
           "name": "クランチ",
           "useDumbbell": true,
           "weight": 3.5,
-          "sets": 1,
+          "sets": 2,
           "reps": 10,
           "timers": {
-            "repDuration": 4,
+            "repDuration": 3,
             "interval": 60
           }
         },
@@ -296,7 +296,7 @@
           "sets": 1,
           "reps": 30,
           "timers": {
-            "repDuration": 4,
+            "repDuration": 3,
             "interval": 60
           }
         }
@@ -311,9 +311,9 @@
           "id": "slow_squat_circuit",
           "name": "スロースクワット",
           "useDumbbell": true,
-          "weight": 3.5,
+          "weight": 9.5,
           "sets": 1,
-          "reps": 10,
+          "reps": 15,
           "timers": {
             "repDuration": 10,
             "interval": 0
@@ -327,7 +327,7 @@
           "sets": 1,
           "reps": 15,
           "timers": {
-            "repDuration": 4,
+            "repDuration": 5,
             "interval": 0
           }
         },
@@ -339,7 +339,7 @@
           "sets": 1,
           "reps": 15,
           "timers": {
-            "repDuration": 4,
+            "repDuration": 5,
             "interval": 0
           }
         },
@@ -351,7 +351,7 @@
           "sets": 1,
           "reps": 15,
           "timers": {
-            "repDuration": 4,
+            "repDuration": 5,
             "interval": 0
           }
         },
@@ -361,15 +361,15 @@
           "useDumbbell": false,
           "weight": 0,
           "sets": 1,
-          "reps": 10,
+          "reps": 20,
           "timers": {
-            "repDuration": 3,
+            "repDuration": 2,
             "interval": 0
           }
         }
       ],
-      "prep": 10,
-      "cooldown": 90
+      "prep": 90,
+      "cooldown": 15
     },
     "thursday": {
       "dayName": "木曜：休息・回復デー",
@@ -422,11 +422,11 @@
           "name": "ストレッチ（10分）",
           "useDumbbell": false,
           "weight": 0,
-          "sets": 2,
-          "reps": 2,
+          "sets": 1,
+          "reps": 1,
           "timers": {
-            "repDuration": 5,
-            "interval": 5
+            "repDuration": 600,
+            "interval": 0
           }
         },
         {
@@ -435,10 +435,10 @@
           "useDumbbell": false,
           "weight": 0,
           "sets": 1,
-          "reps": 2,
+          "reps": 1,
           "timers": {
-            "repDuration": 3,
-            "interval": 5
+            "repDuration": 1200,
+            "interval": 0
           }
         },
         {
@@ -447,15 +447,17 @@
           "useDumbbell": false,
           "weight": 0,
           "sets": 1,
-          "reps": 2,
+          "reps": 1,
           "timers": {
-            "repDuration": 3,
-            "interval": 5
+            "repDuration": 10,
+            "interval": 0
           }
         }
       ],
       "prep": 10,
       "cooldown": 90
     }
-  }
+  },
+  "globalPrep": 5,
+  "globalCooldown": 90
 }
