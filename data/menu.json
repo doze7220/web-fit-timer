@@ -64,7 +64,7 @@
           }
         }
       ],
-      "prep": 30,
+      "prep": 20,
       "cooldown": 90
     },
     "sunday": {
@@ -141,7 +141,7 @@
           "id": "slow_squat",
           "name": "スロースクワット",
           "useDumbbell": true,
-          "weight": 8,
+          "weight": 9.5,
           "sets": 3,
           "reps": 10,
           "timers": {
@@ -165,7 +165,7 @@
           "id": "calf_raise",
           "name": "カーフレイズ",
           "useDumbbell": true,
-          "weight": 8,
+          "weight": 9.5,
           "sets": 2,
           "reps": 30,
           "timers": {
@@ -193,7 +193,7 @@
           "sets": 3,
           "reps": 20,
           "timers": {
-            "repDuration": 3,
+            "repDuration": 2,
             "interval": 60
           }
         },
@@ -201,7 +201,7 @@
           "id": "side_bend",
           "name": "サイドベント",
           "useDumbbell": true,
-          "weight": 8,
+          "weight": 9.5,
           "sets": 4,
           "reps": 10,
           "timers": {
@@ -210,7 +210,7 @@
           }
         }
       ],
-      "prep": 10,
+      "prep": 20,
       "cooldown": 90
     },
     "tuesday": {
@@ -220,7 +220,7 @@
           "id": "dumbbell_shoulder_press",
           "name": "ダンベルショルダープレス",
           "useDumbbell": true,
-          "weight": 8,
+          "weight": 7,
           "sets": 3,
           "reps": 10,
           "timers": {
@@ -301,7 +301,7 @@
           }
         }
       ],
-      "prep": 10,
+      "prep": 20,
       "cooldown": 90
     },
     "wednesday": {
@@ -327,7 +327,7 @@
           "sets": 1,
           "reps": 15,
           "timers": {
-            "repDuration": 5,
+            "repDuration": 4,
             "interval": 0
           }
         },
@@ -339,7 +339,7 @@
           "sets": 1,
           "reps": 15,
           "timers": {
-            "repDuration": 5,
+            "repDuration": 4,
             "interval": 0
           }
         },
@@ -351,7 +351,7 @@
           "sets": 1,
           "reps": 15,
           "timers": {
-            "repDuration": 5,
+            "repDuration": 4,
             "interval": 0
           }
         },
@@ -361,9 +361,9 @@
           "useDumbbell": false,
           "weight": 0,
           "sets": 1,
-          "reps": 20,
+          "reps": 40,
           "timers": {
-            "repDuration": 2,
+            "repDuration": 3,
             "interval": 0
           }
         }
@@ -382,7 +382,7 @@
           "sets": 1,
           "reps": 1,
           "timers": {
-            "repDuration": 600,
+            "repDuration": 4,
             "interval": 0
           }
         },
@@ -458,6 +458,5 @@
       "cooldown": 90
     }
   },
-  "globalPrep": 5,
-  "globalCooldown": 90
+  "globalPrep": 5
 }
