@@ -31,7 +31,7 @@
           "id": "dumbbell_narrow_press",
           "name": "ダンベルナロープレス",
           "useDumbbell": true,
-          "weight": 8,
+          "weight": 9.5,
           "sets": 2,
           "reps": 10,
           "timers": {
@@ -74,7 +74,7 @@
           "id": "incline_reverse_fly",
           "name": "インクラインリバースフライ",
           "useDumbbell": true,
-          "weight": 2.5,
+          "weight": 3.5,
           "sets": 2,
           "reps": 12,
           "timers": {
@@ -114,7 +114,7 @@
           "sets": 2,
           "reps": 10,
           "timers": {
-            "repDuration": 4,
+            "repDuration": 3,
             "interval": 60
           }
         },
@@ -126,7 +126,7 @@
           "sets": 2,
           "reps": 10,
           "timers": {
-            "repDuration": 4,
+            "repDuration": 3,
             "interval": 60
           }
         }
@@ -210,7 +210,7 @@
           }
         }
       ],
-      "prep": 20,
+      "prep": 10,
       "cooldown": 90
     },
     "tuesday": {
@@ -220,7 +220,7 @@
           "id": "dumbbell_shoulder_press",
           "name": "ダンベルショルダープレス",
           "useDumbbell": true,
-          "weight": 7,
+          "weight": 8,
           "sets": 3,
           "reps": 10,
           "timers": {
@@ -296,12 +296,12 @@
           "sets": 1,
           "reps": 30,
           "timers": {
-            "repDuration": 3,
+            "repDuration": 2,
             "interval": 60
           }
         }
       ],
-      "prep": 20,
+      "prep": 10,
       "cooldown": 90
     },
     "wednesday": {
@@ -361,9 +361,9 @@
           "useDumbbell": false,
           "weight": 0,
           "sets": 1,
-          "reps": 40,
+          "reps": 20,
           "timers": {
-            "repDuration": 3,
+            "repDuration": 2,
             "interval": 0
           }
         }
@@ -382,7 +382,7 @@
           "sets": 1,
           "reps": 1,
           "timers": {
-            "repDuration": 4,
+            "repDuration": 600,
             "interval": 0
           }
         },
@@ -449,7 +449,7 @@
           "sets": 1,
           "reps": 1,
           "timers": {
-            "repDuration": 10,
+            "repDuration": 300,
             "interval": 0
           }
         }
@@ -458,5 +458,6 @@
       "cooldown": 90
     }
   },
-  "globalPrep": 5
+  "globalPrep": 10,
+  "globalCooldown": 90
 }
