@@ -106,9 +106,10 @@ function handleBeep(seconds, phase) {
             playTone(1760, 0.5);
         }
     } else if (phase === PHASES.PREP || phase === PHASES.INTERVAL || phase === PHASES.COOLDOWN) {
-        if (seconds === 5) {
+        const leadSec = (appData && appData.settings && appData.settings.restAlertLeadSec) || 5;
+        if (seconds === leadSec) {
             playMp3('whistleShort2');
-        } else if (seconds > 0 && seconds <= 3) {
+        } else if (seconds > 0 && seconds <= Math.max(0, leadSec - 2)) {
             playTone(880, 0.1);
         }
     }
@@ -135,6 +136,11 @@ const btnNextSet = document.getElementById('btn-next-set');
 const btnNextExercise = document.getElementById('btn-next-exercise');
 const btnExport = document.getElementById('btn-export');
 const btnReset = document.getElementById('btn-reset');
+
+const btnSettings = document.getElementById('btn-settings');
+const btnSettingsClose = document.getElementById('btn-settings-close');
+const settingsModal = document.getElementById('settings-modal');
+const settingsBody = document.getElementById('settings-body');
 
 // Initialization
 async function initApp() {
@@ -171,6 +177,11 @@ async function initApp() {
         if (typeof d.prep === 'undefined') d.prep = 10;
         if (typeof d.cooldown === 'undefined') d.cooldown = 90;
     });
+
+    if (typeof appData.settings === 'undefined') appData.settings = {};
+    if (typeof appData.settings.restAlertLeadSec === 'undefined') appData.settings.restAlertLeadSec = 5;
+    if (typeof originalData.settings === 'undefined') originalData.settings = {};
+    if (typeof originalData.settings.restAlertLeadSec === 'undefined') originalData.settings.restAlertLeadSec = 5;
 
     // 古いローカルデータのクリーンアップ処理（後方互換性のため）
     const cleanupExTimers = (dataObj) => {
@@ -262,6 +273,45 @@ function renderDayTimers() {
     wrapper.appendChild(cooldownControl);
     
     container.appendChild(wrapper);
+}
+
+function renderSettings() {
+    settingsBody.innerHTML = '';
+
+    const item = document.createElement('div');
+    item.className = 'settings-item';
+
+    const desc = document.createElement('div');
+    desc.className = 'settings-item-desc';
+    desc.textContent = 'PREP・INTERVAL・COOLDOWN（休憩）が終わる何秒前からホイッスルとカウントダウン音を鳴らすかを設定します。';
+    item.appendChild(desc);
+
+    const control = createNumberControl(
+        '休憩終了アラート (秒前)',
+        appData.settings.restAlertLeadSec,
+        originalData.settings.restAlertLeadSec,
+        val => {
+            appData.settings.restAlertLeadSec = val;
+            saveData();
+        },
+        { step: 1 }
+    );
+    control.style.flexDirection = 'row';
+    control.style.alignItems = 'center';
+    control.style.justifyContent = 'space-between';
+    control.style.gap = '8px';
+
+    item.appendChild(control);
+    settingsBody.appendChild(item);
+}
+
+function openSettings() {
+    renderSettings();
+    settingsModal.classList.remove('hidden');
+}
+
+function closeSettings() {
+    settingsModal.classList.add('hidden');
 }
 
 function selectDay(dayKey) {
@@ -481,7 +531,7 @@ function startExercise(index, autoPause = false, skipPrep = false) {
     timerState.currentRep = 1;
     
     if (skipPrep) {
-        // 準備時間(PREP)をスキップして直接WORKを開始
+        // クールダウン（メニュー間休憩）が既に挟まっているため、PREPは重ねずWORKへ直行
         playMp3('whistleShort1');
         startPhase(PHASES.WORK, ex.timers.repDuration * 1000);
     } else {
@@ -710,8 +760,8 @@ function skipToNextSet() {
     if (timerState.currentSet < ex.sets) {
         timerState.currentSet++;
         timerState.currentRep = 1;
-        playMp3('whistleShort1');
-        startPhase(PHASES.WORK, ex.timers.repDuration * 1000);
+        // 次セットもPREPを挟んでから開始
+        startPhase(PHASES.PREP, (appData.routines[currentDay].prep || 10) * 1000);
     } else {
         playMp3('whistleLong2');
         const exercises = appData.routines[currentDay].exercises;
@@ -728,8 +778,8 @@ function skipToNextSet() {
 function skipToNextExercise() {
     const exercises = appData.routines[currentDay].exercises;
     if (currentExerciseIndex >= 0 && currentExerciseIndex < exercises.length - 1) {
-        // 次のメニューへ手動遷移（PREPスキップ）
-        startExercise(currentExerciseIndex + 1, false, true);
+        // 次のメニューへ手動遷移（PREPを挟んで開始）
+        startExercise(currentExerciseIndex + 1);
     } else {
         stopTimer();
         resetTimerUI();
@@ -765,6 +815,12 @@ function setupEventListeners() {
     btnNextExercise.addEventListener('click', () => { initAudio(); skipToNextExercise(); });
     btnExport.addEventListener('click', exportJSON);
     btnReset.addEventListener('click', reloadJSON);
+
+    btnSettings.addEventListener('click', openSettings);
+    btnSettingsClose.addEventListener('click', closeSettings);
+    settingsModal.addEventListener('click', (e) => {
+        if (e.target === settingsModal) closeSettings();
+    });
 }
 
 // Start app

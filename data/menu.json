@@ -459,5 +459,8 @@
     }
   },
   "globalPrep": 10,
-  "globalCooldown": 90
+  "globalCooldown": 90,
+  "settings": {
+    "restAlertLeadSec": 5
+  }
 }
