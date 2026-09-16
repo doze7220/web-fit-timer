@@ -31,7 +31,7 @@
           "id": "dumbbell_narrow_press",
           "name": "ダンベルナロープレス",
           "useDumbbell": true,
-          "weight": 9.5,
+          "weight": 8,
           "sets": 2,
           "reps": 10,
           "timers": {
@@ -64,7 +64,7 @@
           }
         }
       ],
-      "prep": 20,
+      "prep": 30,
       "cooldown": 90
     },
     "sunday": {
@@ -220,7 +220,7 @@
           "id": "dumbbell_shoulder_press",
           "name": "ダンベルショルダープレス",
           "useDumbbell": true,
-          "weight": 8,
+          "weight": 7,
           "sets": 3,
           "reps": 10,
           "timers": {
@@ -280,7 +280,7 @@
           "id": "crunch",
           "name": "クランチ",
           "useDumbbell": true,
-          "weight": 3.5,
+          "weight": 8,
           "sets": 2,
           "reps": 10,
           "timers": {
@@ -296,7 +296,7 @@
           "sets": 1,
           "reps": 30,
           "timers": {
-            "repDuration": 2,
+            "repDuration": 3,
             "interval": 60
           }
         }
@@ -366,9 +366,21 @@
             "repDuration": 2,
             "interval": 0
           }
+        },
+        {
+          "id": "rest",
+          "name": "休憩",
+          "useDumbbell": false,
+          "weight": 0,
+          "sets": 1,
+          "reps": 1,
+          "timers": {
+            "repDuration": 90,
+            "interval": 0
+          }
         }
       ],
-      "prep": 90,
+      "prep": 10,
       "cooldown": 15
     },
     "thursday": {
@@ -449,7 +461,7 @@
           "sets": 1,
           "reps": 1,
           "timers": {
-            "repDuration": 300,
+            "repDuration": 10,
             "interval": 0
           }
         }
@@ -458,9 +470,9 @@
       "cooldown": 90
     }
   },
-  "globalPrep": 10,
+  "globalPrep": 5,
   "globalCooldown": 90,
   "settings": {
-    "restAlertLeadSec": 5
+    "restAlertLeadSec": 10
   }
 }
