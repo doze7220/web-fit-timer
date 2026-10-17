@@ -1,142 +1,20 @@
 {
   "routines": {
-    "saturday": {
-      "dayName": "土曜：胸＋上腕三頭筋",
+    "sunday": {
+      "dayName": "日曜：全身法",
       "exercises": [
         {
-          "id": "dumbbell_bench_press",
-          "name": "ダンベルベンチプレス",
-          "useDumbbell": true,
-          "weight": 10.5,
-          "sets": 3,
-          "reps": 10,
-          "timers": {
-            "repDuration": 4,
-            "interval": 60
-          }
-        },
-        {
-          "id": "dumbbell_bench_fly",
-          "name": "ダンベルベンチフライ",
-          "useDumbbell": true,
-          "weight": 9.5,
-          "sets": 3,
-          "reps": 10,
-          "timers": {
-            "repDuration": 4,
-            "interval": 60
-          }
-        },
-        {
-          "id": "dumbbell_narrow_press",
-          "name": "ダンベルナロープレス",
-          "useDumbbell": true,
-          "weight": 9.5,
-          "sets": 2,
-          "reps": 10,
-          "timers": {
-            "repDuration": 4,
-            "interval": 60
-          }
-        },
-        {
-          "id": "crunch",
-          "name": "クランチ",
-          "useDumbbell": true,
-          "weight": 8,
-          "sets": 3,
-          "reps": 10,
-          "timers": {
-            "repDuration": 3,
-            "interval": 60
-          }
-        },
-        {
-          "id": "reverse_crunch",
-          "name": "リバースクランチ",
+          "id": "warmup_stretch",
+          "name": "ウォームアップストレッチ",
           "useDumbbell": false,
           "weight": 0,
-          "sets": 3,
-          "reps": 10,
+          "sets": 9,
+          "reps": 1,
           "timers": {
-            "repDuration": 3,
-            "interval": 60
-          }
-        }
-      ],
-      "prep": 20,
-      "cooldown": 90
-    },
-    "sunday": {
-      "dayName": "日曜：背中＋上腕二頭筋",
-      "exercises": [
-        {
-          "id": "incline_reverse_fly",
-          "name": "インクラインリバースフライ",
-          "useDumbbell": true,
-          "weight": 3.5,
-          "sets": 2,
-          "reps": 12,
-          "timers": {
-            "repDuration": 4,
-            "interval": 60
+            "repDuration": 40,
+            "interval": 10
           }
         },
-        {
-          "id": "incline_dumbbell_row",
-          "name": "インクラインダンベルロー",
-          "useDumbbell": true,
-          "weight": 10.5,
-          "sets": 3,
-          "reps": 10,
-          "timers": {
-            "repDuration": 4,
-            "interval": 60
-          }
-        },
-        {
-          "id": "dumbbell_hip_hinge",
-          "name": "ダンベルヒップヒンジ",
-          "useDumbbell": true,
-          "weight": 10.5,
-          "sets": 2,
-          "reps": 15,
-          "timers": {
-            "repDuration": 4,
-            "interval": 60
-          }
-        },
-        {
-          "id": "incline_hammer_curl",
-          "name": "インクラインハンマーカール",
-          "useDumbbell": true,
-          "weight": 3.5,
-          "sets": 2,
-          "reps": 10,
-          "timers": {
-            "repDuration": 3,
-            "interval": 60
-          }
-        },
-        {
-          "id": "incline_dumbbell_curl",
-          "name": "インクラインダンベルカール",
-          "useDumbbell": true,
-          "weight": 3.5,
-          "sets": 2,
-          "reps": 10,
-          "timers": {
-            "repDuration": 3,
-            "interval": 60
-          }
-        }
-      ],
-      "prep": 20,
-      "cooldown": 90
-    },
-    "monday": {
-      "dayName": "月曜：脚＋お尻",
-      "exercises": [
         {
           "id": "slow_squat",
           "name": "スロースクワット",
@@ -150,72 +28,53 @@
           }
         },
         {
-          "id": "hip_thrust",
-          "name": "ヒップスラスト",
+          "id": "dumbbell_row_lat",
+          "name": "ダンベルロー（肘体側・腰へ）",
           "useDumbbell": true,
-          "weight": 16,
+          "weight": 10.5,
           "sets": 3,
           "reps": 10,
           "timers": {
-            "repDuration": 3,
-            "interval": 30
-          }
-        },
-        {
-          "id": "calf_raise",
-          "name": "カーフレイズ",
-          "useDumbbell": true,
-          "weight": 9.5,
-          "sets": 2,
-          "reps": 30,
-          "timers": {
-            "repDuration": 2,
-            "interval": 30
-          }
-        },
-        {
-          "id": "side_leg_raise",
-          "name": "サイドレッグレイズ",
-          "useDumbbell": false,
-          "weight": 0,
-          "sets": 2,
-          "reps": 30,
-          "timers": {
-            "repDuration": 2.5,
-            "interval": 20
-          }
-        },
-        {
-          "id": "twist_crunch",
-          "name": "ツイストクランチ",
-          "useDumbbell": false,
-          "weight": 0,
-          "sets": 3,
-          "reps": 20,
-          "timers": {
-            "repDuration": 2,
+            "repDuration": 4,
             "interval": 60
           }
         },
         {
-          "id": "side_bend",
-          "name": "サイドベント",
+          "id": "dumbbell_bench_fly",
+          "name": "ダンベルフライ",
           "useDumbbell": true,
-          "weight": 9.5,
-          "sets": 4,
+          "weight": 10.5,
+          "sets": 3,
           "reps": 10,
           "timers": {
-            "repDuration": 2,
-            "interval": 20
+            "repDuration": 4,
+            "interval": 60
           }
-        }
-      ],
-      "prep": 10,
-      "cooldown": 90
-    },
-    "tuesday": {
-      "dayName": "火曜：肩＋腹",
-      "exercises": [
+        },
+        {
+          "id": "dumbbell_hip_hinge",
+          "name": "ヒップヒンジ",
+          "useDumbbell": true,
+          "weight": 10.5,
+          "sets": 3,
+          "reps": 10,
+          "timers": {
+            "repDuration": 4,
+            "interval": 60
+          }
+        },
+        {
+          "id": "chest_supported_row_wide",
+          "name": "チェストサポートロー（肘張り・胸へ）",
+          "useDumbbell": true,
+          "weight": 9.5,
+          "sets": 3,
+          "reps": 10,
+          "timers": {
+            "repDuration": 4,
+            "interval": 60
+          }
+        },
         {
           "id": "dumbbell_shoulder_press",
           "name": "ダンベルショルダープレス",
@@ -229,74 +88,14 @@
           }
         },
         {
-          "id": "side_raise",
-          "name": "サイドレイズ",
-          "useDumbbell": true,
-          "weight": 3.5,
-          "sets": 2,
-          "reps": 10,
-          "timers": {
-            "repDuration": 4,
-            "interval": 60
-          }
-        },
-        {
-          "id": "front_raise",
-          "name": "フロントレイズ",
-          "useDumbbell": true,
-          "weight": 3.5,
-          "sets": 2,
-          "reps": 10,
-          "timers": {
-            "repDuration": 4,
-            "interval": 60
-          }
-        },
-        {
-          "id": "rear_raise",
-          "name": "リアレイズ",
-          "useDumbbell": true,
-          "weight": 3.5,
-          "sets": 2,
-          "reps": 12,
-          "timers": {
-            "repDuration": 4,
-            "interval": 60
-          }
-        },
-        {
-          "id": "reverse_crunch",
-          "name": "リバースクランチ",
-          "useDumbbell": false,
-          "weight": 0,
-          "sets": 2,
-          "reps": 10,
-          "timers": {
-            "repDuration": 3,
-            "interval": 60
-          }
-        },
-        {
           "id": "crunch",
           "name": "クランチ",
           "useDumbbell": true,
-          "weight": 3.5,
-          "sets": 2,
+          "weight": 10.5,
+          "sets": 3,
           "reps": 10,
           "timers": {
             "repDuration": 3,
-            "interval": 60
-          }
-        },
-        {
-          "id": "deadbug",
-          "name": "デッドバグ",
-          "useDumbbell": false,
-          "weight": 0,
-          "sets": 1,
-          "reps": 30,
-          "timers": {
-            "repDuration": 2,
             "interval": 60
           }
         }
@@ -304,78 +103,11 @@
       "prep": 10,
       "cooldown": 90
     },
-    "wednesday": {
-      "dayName": "水曜：全身サーキット",
+    "monday": {
+      "dayName": "月曜：休息・回復デー",
       "exercises": [
         {
-          "id": "slow_squat_circuit",
-          "name": "スロースクワット",
-          "useDumbbell": true,
-          "weight": 9.5,
-          "sets": 1,
-          "reps": 15,
-          "timers": {
-            "repDuration": 10,
-            "interval": 0
-          }
-        },
-        {
-          "id": "dumbbell_floor_press",
-          "name": "ダンベルフロアプレス",
-          "useDumbbell": true,
-          "weight": 9.5,
-          "sets": 1,
-          "reps": 15,
-          "timers": {
-            "repDuration": 4,
-            "interval": 0
-          }
-        },
-        {
-          "id": "dumbbell_bent_over_row",
-          "name": "ダンベルベントオーバーロウ",
-          "useDumbbell": true,
-          "weight": 9.5,
-          "sets": 1,
-          "reps": 15,
-          "timers": {
-            "repDuration": 4,
-            "interval": 0
-          }
-        },
-        {
-          "id": "dumbbell_hip_hinge_circuit",
-          "name": "ダンベルヒップヒンジ",
-          "useDumbbell": true,
-          "weight": 9.5,
-          "sets": 1,
-          "reps": 15,
-          "timers": {
-            "repDuration": 4,
-            "interval": 0
-          }
-        },
-        {
-          "id": "deadbug_circuit",
-          "name": "デッドバグ",
-          "useDumbbell": false,
-          "weight": 0,
-          "sets": 1,
-          "reps": 20,
-          "timers": {
-            "repDuration": 2,
-            "interval": 0
-          }
-        }
-      ],
-      "prep": 90,
-      "cooldown": 15
-    },
-    "thursday": {
-      "dayName": "木曜：休息・回復デー",
-      "exercises": [
-        {
-          "id": "stretch",
+          "id": "stretch_mon",
           "name": "ストレッチ（10分）",
           "useDumbbell": false,
           "weight": 0,
@@ -387,7 +119,7 @@
           }
         },
         {
-          "id": "walking",
+          "id": "walking_mon",
           "name": "ウォーキング（15〜30分）",
           "useDumbbell": false,
           "weight": 0,
@@ -399,7 +131,7 @@
           }
         },
         {
-          "id": "bath_breathing",
+          "id": "bath_breathing_mon",
           "name": "温浴＋深呼吸（就寝前）",
           "useDumbbell": false,
           "weight": 0,
@@ -408,6 +140,255 @@
           "timers": {
             "repDuration": 300,
             "interval": 0
+          }
+        }
+      ],
+      "prep": 10,
+      "cooldown": 90
+    },
+    "tuesday": {
+      "dayName": "火曜：全身法",
+      "exercises": [
+        {
+          "id": "warmup_stretch",
+          "name": "ウォームアップストレッチ",
+          "useDumbbell": false,
+          "weight": 0,
+          "sets": 9,
+          "reps": 1,
+          "timers": {
+            "repDuration": 40,
+            "interval": 10
+          }
+        },
+        {
+          "id": "slow_squat",
+          "name": "スロースクワット",
+          "useDumbbell": true,
+          "weight": 9.5,
+          "sets": 3,
+          "reps": 10,
+          "timers": {
+            "repDuration": 10,
+            "interval": 60
+          }
+        },
+        {
+          "id": "dumbbell_row_lat",
+          "name": "ダンベルロー（肘体側・腰へ）",
+          "useDumbbell": true,
+          "weight": 10.5,
+          "sets": 3,
+          "reps": 10,
+          "timers": {
+            "repDuration": 4,
+            "interval": 60
+          }
+        },
+        {
+          "id": "dumbbell_bench_fly",
+          "name": "ダンベルフライ",
+          "useDumbbell": true,
+          "weight": 10.5,
+          "sets": 3,
+          "reps": 10,
+          "timers": {
+            "repDuration": 4,
+            "interval": 60
+          }
+        },
+        {
+          "id": "dumbbell_hip_hinge",
+          "name": "ヒップヒンジ",
+          "useDumbbell": true,
+          "weight": 10.5,
+          "sets": 3,
+          "reps": 10,
+          "timers": {
+            "repDuration": 4,
+            "interval": 60
+          }
+        },
+        {
+          "id": "chest_supported_row_wide",
+          "name": "チェストサポートロー（肘張り・胸へ）",
+          "useDumbbell": true,
+          "weight": 9.5,
+          "sets": 3,
+          "reps": 10,
+          "timers": {
+            "repDuration": 4,
+            "interval": 60
+          }
+        },
+        {
+          "id": "dumbbell_shoulder_press",
+          "name": "ダンベルショルダープレス",
+          "useDumbbell": true,
+          "weight": 8,
+          "sets": 3,
+          "reps": 10,
+          "timers": {
+            "repDuration": 4,
+            "interval": 60
+          }
+        },
+        {
+          "id": "crunch",
+          "name": "クランチ",
+          "useDumbbell": true,
+          "weight": 10.5,
+          "sets": 3,
+          "reps": 10,
+          "timers": {
+            "repDuration": 3,
+            "interval": 60
+          }
+        }
+      ],
+      "prep": 10,
+      "cooldown": 90
+    },
+    "wednesday": {
+      "dayName": "水曜：休息・回復デー",
+      "exercises": [
+        {
+          "id": "stretch_wed",
+          "name": "ストレッチ（10分）",
+          "useDumbbell": false,
+          "weight": 0,
+          "sets": 1,
+          "reps": 1,
+          "timers": {
+            "repDuration": 600,
+            "interval": 0
+          }
+        },
+        {
+          "id": "walking_wed",
+          "name": "ウォーキング（15〜30分）",
+          "useDumbbell": false,
+          "weight": 0,
+          "sets": 1,
+          "reps": 1,
+          "timers": {
+            "repDuration": 1200,
+            "interval": 0
+          }
+        },
+        {
+          "id": "bath_breathing_wed",
+          "name": "温浴＋深呼吸（就寝前）",
+          "useDumbbell": false,
+          "weight": 0,
+          "sets": 1,
+          "reps": 1,
+          "timers": {
+            "repDuration": 300,
+            "interval": 0
+          }
+        }
+      ],
+      "prep": 10,
+      "cooldown": 90
+    },
+    "thursday": {
+      "dayName": "木曜：全身法",
+      "exercises": [
+        {
+          "id": "warmup_stretch",
+          "name": "ウォームアップストレッチ",
+          "useDumbbell": false,
+          "weight": 0,
+          "sets": 9,
+          "reps": 1,
+          "timers": {
+            "repDuration": 40,
+            "interval": 10
+          }
+        },
+        {
+          "id": "slow_squat",
+          "name": "スロースクワット",
+          "useDumbbell": true,
+          "weight": 9.5,
+          "sets": 3,
+          "reps": 10,
+          "timers": {
+            "repDuration": 10,
+            "interval": 60
+          }
+        },
+        {
+          "id": "dumbbell_row_lat",
+          "name": "ダンベルロー（肘体側・腰へ）",
+          "useDumbbell": true,
+          "weight": 10.5,
+          "sets": 3,
+          "reps": 10,
+          "timers": {
+            "repDuration": 4,
+            "interval": 60
+          }
+        },
+        {
+          "id": "dumbbell_bench_fly",
+          "name": "ダンベルフライ",
+          "useDumbbell": true,
+          "weight": 10.5,
+          "sets": 3,
+          "reps": 10,
+          "timers": {
+            "repDuration": 4,
+            "interval": 60
+          }
+        },
+        {
+          "id": "dumbbell_hip_hinge",
+          "name": "ヒップヒンジ",
+          "useDumbbell": true,
+          "weight": 10.5,
+          "sets": 3,
+          "reps": 10,
+          "timers": {
+            "repDuration": 4,
+            "interval": 60
+          }
+        },
+        {
+          "id": "chest_supported_row_wide",
+          "name": "チェストサポートロー（肘張り・胸へ）",
+          "useDumbbell": true,
+          "weight": 9.5,
+          "sets": 3,
+          "reps": 10,
+          "timers": {
+            "repDuration": 4,
+            "interval": 60
+          }
+        },
+        {
+          "id": "dumbbell_shoulder_press",
+          "name": "ダンベルショルダープレス",
+          "useDumbbell": true,
+          "weight": 8,
+          "sets": 3,
+          "reps": 10,
+          "timers": {
+            "repDuration": 4,
+            "interval": 60
+          }
+        },
+        {
+          "id": "crunch",
+          "name": "クランチ",
+          "useDumbbell": true,
+          "weight": 10.5,
+          "sets": 3,
+          "reps": 10,
+          "timers": {
+            "repDuration": 3,
+            "interval": 60
           }
         }
       ],
@@ -443,6 +424,49 @@
         },
         {
           "id": "bath_breathing_fri",
+          "name": "温浴＋深呼吸（就寝前）",
+          "useDumbbell": false,
+          "weight": 0,
+          "sets": 1,
+          "reps": 1,
+          "timers": {
+            "repDuration": 300,
+            "interval": 0
+          }
+        }
+      ],
+      "prep": 10,
+      "cooldown": 90
+    },
+    "saturday": {
+      "dayName": "土曜：休息・回復デー",
+      "exercises": [
+        {
+          "id": "stretch_sat",
+          "name": "ストレッチ（10分）",
+          "useDumbbell": false,
+          "weight": 0,
+          "sets": 1,
+          "reps": 1,
+          "timers": {
+            "repDuration": 600,
+            "interval": 0
+          }
+        },
+        {
+          "id": "walking_sat",
+          "name": "ウォーキング（15〜30分）",
+          "useDumbbell": false,
+          "weight": 0,
+          "sets": 1,
+          "reps": 1,
+          "timers": {
+            "repDuration": 1200,
+            "interval": 0
+          }
+        },
+        {
+          "id": "bath_breathing_sat",
           "name": "温浴＋深呼吸（就寝前）",
           "useDumbbell": false,
           "weight": 0,
